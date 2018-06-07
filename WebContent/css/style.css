@@ -178,8 +178,34 @@ a i.dribble {
 /*--head-top--*/
 .logo {
     float: left;
-    margin-top: 22px;
+    margin-top: -5px;
+    margin-bottom: -15px;
+    margin-left: 50px;
 }
+
+.fixed{
+	position: fixed;
+	
+	overflow: hidden;
+	display: block;
+	
+	padding: 1em 21em;
+    background:#4e2a84;
+	z-index: 999;
+    position: fixed;
+	
+	top: 0px;
+	width: 100%;
+	margin: 0 auto;
+	left: 0px;
+	background: WHITE;
+	box-shadow: 3px 3px 0px 0px rgba(181, 165, 126, 0.45);
+	-webkit-box-shadow: 3px 3px 0px 0px rgba(181, 165, 126, 0.45);
+	-moz-box-shadow: 3px 3px 0px 0px rgba(181, 165, 126, 0.45);
+	-o-box-shadow: 3px 3px 0px 0px rgba(181, 165, 126, 0.45);
+}
+
+
 p.location {
     float: left;
     color: #fff;
@@ -886,7 +912,6 @@ position: absolute;
     padding: 11px 20px;
     text-align: left;
     width: 100%;
-    z-index: 9999
 }
 .story_desc h3{
 	color:#fff;
@@ -975,6 +1000,7 @@ p.p1{
 	    font-family: 'Montserrat',sans-serif!important;
 }
 .sub-hd h3.tittle {
+	padding-top: 40px; 
     font-size: 3em;
     font-weight:300;
 	    color: #222;

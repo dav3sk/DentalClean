@@ -36,12 +36,10 @@
 					jQuery(document).ready(function($) {
 						$(".scroll").click(function(event){		
 							event.preventDefault();
-							$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+							$('html,body').animate({scrollTop:$(this.hash).offset().top}, 900);
 						});
 					});
 		</script>
-		
-		
 	</h:head>
 	
 	<body>
@@ -51,6 +49,7 @@
 			<!--header-top-->
 			
 				<!-- USAR A TAG: class="header-middle" -->
+			
 			
 				<div class="header-top">
 				  <div class="container">
@@ -64,7 +63,7 @@
 							<span class="icon-bar"></span>
 						  </button>
 							<div class="logo">
-								<h1><a class="navbar-brand" href="index.html"><span>M</span>edicinal  <img src="images/logo.png" alt=" " /></a></h1>
+								<img src="images/logo1.jpg" alt=" " style="width: 300px; " />
 							</div>
 						</div>
 	
@@ -73,11 +72,12 @@
 							  <div class="top-menu">
 								<nav class="menu menu--francisco">
 										<ul class="nav navbar-nav menu__list">
-											<li class="menu__item menu__item--current"><a href="index.html" class="menu__link"><span class="menu__helper">Home</span></a></li>
-											<li class="menu__item"><a href="about.html" class="menu__link"><span class="menu__helper">About Us</span></a></li>
-											<li class="menu__item"><a href="typography.html" class="menu__link"><span class="menu__helper">Short Codes</span></a></li>
-											<li class="menu__item"><a href="gallery.html" class="menu__link"><span class="menu__helper">Departments</span></a></li>
-											<li class="menu__item"><a href="contact.html" class="menu__link"><span class="menu__helper">Contact Us</span></a></li>
+											<li class="menu__item menu__item--current"><a href="index.html" class="menu__link"><span class="menu__helper">Inicio</span></a></li>
+											<li class="menu__item"><a class="menu__link"><span class="menu__helper">Servicos</span></a></li>
+											<li class="menu__item"><a class="menu__link"><span class="menu__helper">Equipe</span></a></li>
+											<li class="menu__item"><a class="menu__link"><span class="menu__helper">Horarios</span></a></li>
+											<li class="menu__item"><a href="contact.html" class="menu__link"><span class="menu__helper">Contato</span></a></li>
+											<li class="menu__item"><a href="login.xhtml" class="menu__link"><span class="menu__helper">Login</span></a></li>
 										</ul>
 									</nav>
 								</div>
@@ -88,6 +88,28 @@
 				   <div class="clearfix"></div>
 				</div>
 		</div>
+		
+		<!-- script-for sticky-nav -->
+		<script>
+		$(document).ready(function() {
+			 var navoffeset=$(".header-top").offset().top;
+			 var scrollpos=$(window).scrollTop(); 
+				if(scrollpos >=navoffeset){
+					$(".header-top").addClass("fixed");
+				}else{
+					$(".header-top").removeClass("fixed");
+				}
+			 $(window).scroll(function(){
+				var scrollpos=$(window).scrollTop(); 
+				if(scrollpos >=navoffeset){
+					$(".header-top").addClass("fixed");
+				}else{
+					$(".header-top").removeClass("fixed");
+				}
+			 });
+		});
+		</script>
+		
 	<!--//header-top-->
 	 <!-- //Line Slider -->
 		 <div class="top_banner">
@@ -201,12 +223,12 @@
 	
 					<div class="inner-w3">
 						    <div class="sub-hd">
-							<h3 class="tittle">ABOUT <span>US</span></h3>
+							<h3 class="tittle">Seja Bem Vindo</h3>
 						</div>
 						</div>
 					 
 					<div class="inner_tabs">
-					    <h2 class="tittle">Welcome to Medicinal</h2>
+					    <h2 class="tittle">Sobre</h2>
 						<p class="sub-para">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem  </p>
 						<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 							<ul id="myTab" class="nav nav-tabs" role="tablist">
