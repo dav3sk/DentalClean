@@ -1,10 +1,11 @@
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\controller\util\JsfUtil.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\model\exceptions\RollbackFailureException.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\controller\SecretáriaController.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\model\exceptions\NonexistentEntityException.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\controller\SecretáriaFacade.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\model\exceptions\IllegalOrphanException.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\model\exceptions\PreexistingEntityException.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\model\entity\dao\SecretáriaJpaController.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\controller\AbstractFacade.java
-D:\OneDrive\Documents\Integrador\DentalClean\V2\DentalClean\src\main\java\gohorse\dentalclean\model\entity\Secretária.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\model\exceptions\PreexistingEntityException.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\controller\AbstractFacade.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\model\exceptions\NonexistentEntityException.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\model\entity\Secretária.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\controller\SecretáriaController.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\model\entity\dao\SecretáriaJpaController.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\controller\util\JsfUtil.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\controller\util\PaginationHelper.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\model\exceptions\RollbackFailureException.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\model\exceptions\IllegalOrphanException.java
+C:\Users\Osvaldo Gardin\NetBeansProjects\DentalClean\src\main\java\gohorse\dentalclean\controller\SecretáriaFacade.java
