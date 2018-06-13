@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{secretaria.ListSecretariaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{secretaria.ListSecretariaEmpty}" rendered="#{secretariaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{secretariaController.items.rowCount > 0}">
+                    <h:outputText value="#{secretariaController.pagination.pageFirstItem + 1}..#{secretariaController.pagination.pageLastItem + 1}/#{secretariaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{secretariaController.previous}" value="#{secretaria.Previous} #{secretariaController.pagination.pageSize}" rendered="#{secretariaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{secretariaController.next}" value="#{secretaria.Next} #{secretariaController.pagination.pageSize}" rendered="#{secretariaController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{secretariaController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_nome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_telefone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefone}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_cpf}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cpf}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_rg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_cep}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cep}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_dataDeNascimento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataDeNascimento}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{secretaria.ListSecretariaTitle_senha}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.senha}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{secretariaController.prepareView}" value="#{secretaria.ListSecretariaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{secretariaController.prepareEdit}" value="#{secretaria.ListSecretariaEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{secretariaController.destroy}" value="#{secretaria.ListSecretariaDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{secretariaController.prepareCreate}" value="#{secretaria.ListSecretariaCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{secretaria.ListSecretariaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
