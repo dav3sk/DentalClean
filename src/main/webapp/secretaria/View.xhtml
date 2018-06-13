@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{secretaria.ViewSecretariaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_id}"/>
+                    <h:outputText value="#{secretariaController.selected.id}" title="#{secretaria.ViewSecretariaTitle_id}"/>
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_nome}"/>
+                    <h:outputText value="#{secretariaController.selected.nome}" title="#{secretaria.ViewSecretariaTitle_nome}"/>
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_telefone}"/>
+                    <h:outputText value="#{secretariaController.selected.telefone}" title="#{secretaria.ViewSecretariaTitle_telefone}"/>
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_email}"/>
+                    <h:outputText value="#{secretariaController.selected.email}" title="#{secretaria.ViewSecretariaTitle_email}"/>
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_cpf}"/>
+                    <h:outputText value="#{secretariaController.selected.cpf}" title="#{secretaria.ViewSecretariaTitle_cpf}"/>
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_rg}"/>
+                    <h:outputText value="#{secretariaController.selected.rg}" title="#{secretaria.ViewSecretariaTitle_rg}"/>
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_cep}"/>
+                    <h:outputText value="#{secretariaController.selected.cep}" title="#{secretaria.ViewSecretariaTitle_cep}"/>
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_dataDeNascimento}"/>
+                    <h:outputText value="#{secretariaController.selected.dataDeNascimento}" title="#{secretaria.ViewSecretariaTitle_dataDeNascimento}"/>
+                    <h:outputText value="#{secretaria.ViewSecretariaLabel_senha}"/>
+                    <h:outputText value="#{secretariaController.selected.senha}" title="#{secretaria.ViewSecretariaTitle_senha}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{secretariaController.destroyAndView}" value="#{secretaria.ViewSecretariaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{secretaria.ViewSecretariaEditLink}"/>
+                <br />
+                <h:commandLink action="#{secretariaController.prepareCreate}" value="#{secretaria.ViewSecretariaCreateLink}" />
+                <br />
+                <h:commandLink action="#{secretariaController.prepareList}" value="#{secretaria.ViewSecretariaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{secretaria.ViewSecretariaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
