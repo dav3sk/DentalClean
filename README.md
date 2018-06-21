@@ -22,11 +22,3 @@
  8. Na página da Pull Request no GitHub: realizar o merge.
  9. git checkout master
  10. git pull origin master
-
-
-## Iniciar novo projeto
- 1. Criar Dynamic Web Project no Eclipse
- 2. Abrir Git Bash na area de trabalho e executar: git clone https://github.com/dav3sk/DentalClean.git
- 3. Abrir pasta DentalClin e copiar a pasta oculta .git
- 4. Colar .git dentro da pasta do Dynamic Web Project criado no passo 1
- 5. Abrir Git Bash dentro da pasta do projeto e executar: git pull origin master

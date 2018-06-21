@@ -6,11 +6,14 @@
 package gohorse.dentalclean.model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
@@ -19,10 +22,7 @@ import javax.validation.constraints.NotNull;
  * @author dav3s
  */
 @Entity
-@Table(
-        name="secretaria",
-        uniqueConstraints=@UniqueConstraint(columnNames={"email"})
-)
+@Table(name="secretaria")
 public class Secretaria implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,25 +30,45 @@ public class Secretaria implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @NotNull
+    @Column(name="nome",
+            nullable=false,
+            length=100)
     private String nome;
     
-    @NotNull
+    @Column(name="telefone",
+            nullable=true,
+            length=15)
     private String telefone;
     
-    @NotNull
+    @Column(name="email",
+            nullable=false,
+            length=244,
+            unique=true)
     private String email;
     
+    @Column(name="cpf",
+            nullable=false,
+            length=11,
+            unique=true)
     private String cpf;
     
+    @Column(name="rg",
+            length=10)
     private String rg;
     
-    @NotNull
+    @Column(name="cep",
+            nullable=false,
+            length=8)
     private String cep;
     
-    @NotNull
-    private String dataDeNascimento;
+    @Column(name="dataDeNascimento",
+            nullable=false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataDeNascimento;
     
+    @Column(name="senha",
+            nullable=false,
+            length=35)
     private String senha;
 
     public Long getId() {
@@ -107,11 +127,11 @@ public class Secretaria implements Serializable {
         this.cep = cep;
     }
 
-    public String getDataDeNascimento() {
+    public Date getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(String dataDeNascimento) {
+    public void setDataDeNascimento(Date dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
 

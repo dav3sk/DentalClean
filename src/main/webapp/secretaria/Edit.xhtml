@@ -3,48 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{secretaria.EditSecretariaTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{secretariaController.selected.id}" title="#{secretaria.EditSecretariaTitle_id}" />
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_nome}" for="nome" />
-                    <h:inputText id="nome" value="#{secretariaController.selected.nome}" title="#{secretaria.EditSecretariaTitle_nome}" />
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_telefone}" for="telefone" />
-                    <h:inputText id="telefone" value="#{secretariaController.selected.telefone}" title="#{secretaria.EditSecretariaTitle_telefone}" />
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{secretariaController.selected.email}" title="#{secretaria.EditSecretariaTitle_email}" />
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_cpf}" for="cpf" />
-                    <h:inputText id="cpf" value="#{secretariaController.selected.cpf}" title="#{secretaria.EditSecretariaTitle_cpf}" />
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_rg}" for="rg" />
-                    <h:inputText id="rg" value="#{secretariaController.selected.rg}" title="#{secretaria.EditSecretariaTitle_rg}" />
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_cep}" for="cep" />
-                    <h:inputText id="cep" value="#{secretariaController.selected.cep}" title="#{secretaria.EditSecretariaTitle_cep}" />
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_dataDeNascimento}" for="dataDeNascimento" />
-                    <h:inputText id="dataDeNascimento" value="#{secretariaController.selected.dataDeNascimento}" title="#{secretaria.EditSecretariaTitle_dataDeNascimento}" />
-                    <h:outputLabel value="#{secretaria.EditSecretariaLabel_senha}" for="senha" />
-                    <h:inputText id="senha" value="#{secretariaController.selected.senha}" title="#{secretaria.EditSecretariaTitle_senha}" />
-                </h:panelGrid>
-                <h:commandLink action="#{secretariaController.update}" value="#{secretaria.EditSecretariaSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{secretaria.EditSecretariaViewLink}"/>
-                <br />
-                <h:commandLink action="#{secretariaController.prepareList}" value="#{secretaria.EditSecretariaShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{secretaria.EditSecretariaIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="SecretariaEditDlg" widgetVar="SecretariaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{secretaria.EditSecretariaTitle}">
+            <h:form id="SecretariaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secretariaController.selected != null}">
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{secretariaController.selected.id}" title="#{secretaria.EditSecretariaTitle_id}" />
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{secretariaController.selected.nome}" title="#{secretaria.EditSecretariaTitle_nome}" />
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_telefone}" for="telefone" />
+                        <p:inputText id="telefone" value="#{secretariaController.selected.telefone}" title="#{secretaria.EditSecretariaTitle_telefone}" />
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{secretariaController.selected.email}" title="#{secretaria.EditSecretariaTitle_email}" />
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_cpf}" for="cpf" />
+                        <p:inputText id="cpf" value="#{secretariaController.selected.cpf}" title="#{secretaria.EditSecretariaTitle_cpf}" />
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_rg}" for="rg" />
+                        <p:inputText id="rg" value="#{secretariaController.selected.rg}" title="#{secretaria.EditSecretariaTitle_rg}" />
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_cep}" for="cep" />
+                        <p:inputText id="cep" value="#{secretariaController.selected.cep}" title="#{secretaria.EditSecretariaTitle_cep}" />
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_dataDeNascimento}" for="dataDeNascimento" />
+                        <p:inputText id="dataDeNascimento" value="#{secretariaController.selected.dataDeNascimento}" title="#{secretaria.EditSecretariaTitle_dataDeNascimento}" />
+                        <p:outputLabel value="#{secretaria.EditSecretariaLabel_senha}" for="senha" />
+                        <p:inputText id="senha" value="#{secretariaController.selected.senha}" title="#{secretaria.EditSecretariaTitle_senha}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{secretariaController.update}" value="#{secretaria.Save}" update="display,:SecretariaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SecretariaEditDialog');"/>
+                    <p:commandButton value="#{secretaria.Cancel}" onclick="SecretariaEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>
