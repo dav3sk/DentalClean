@@ -3,95 +3,97 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{secretaria.ListSecretariaTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{secretaria.ListSecretariaEmpty}" rendered="#{secretariaController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{secretariaController.items.rowCount > 0}">
-                    <h:outputText value="#{secretariaController.pagination.pageFirstItem + 1}..#{secretariaController.pagination.pageLastItem + 1}/#{secretariaController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{secretariaController.previous}" value="#{secretaria.Previous} #{secretariaController.pagination.pageSize}" rendered="#{secretariaController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{secretariaController.next}" value="#{secretaria.Next} #{secretariaController.pagination.pageSize}" rendered="#{secretariaController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{secretariaController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_id}"/>
+                <h:form id="SecretariaListForm">
+                    <p:panel header="#{secretaria.ListSecretariaTitle}">
+                        <p:dataTable id="datalist" value="#{secretariaController.items}" var="item"
+                            selectionMode="single" selection="#{secretariaController.selected}"
+                            paginator="true"
+                            rowKey="#{item.id}"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_id}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_nome}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nome}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_telefone}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telefone}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_email}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.email}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_cpf}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cpf}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_rg}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.rg}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_cep}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cep}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_dataDeNascimento}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dataDeNascimento}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{secretaria.ListSecretariaTitle_senha}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.senha}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{secretaria.Create}" actionListener="#{secretariaController.prepareCreate}" oncomplete="PF('SecretariaCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{secretaria.View}" update=":SecretariaViewForm" oncomplete="PF('SecretariaViewDialog').show()" disabled="#{empty secretariaController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{secretaria.Edit}" update=":SecretariaEditForm" oncomplete="PF('SecretariaEditDialog').show()" disabled="#{empty secretariaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{secretaria.Delete}" actionListener="#{secretariaController.destroy}" update=":growl,datalist" disabled="#{empty secretariaController.selected}"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_nome}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nome}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_telefone}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.telefone}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_cpf}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cpf}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_rg}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rg}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_cep}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cep}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_dataDeNascimento}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dataDeNascimento}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{secretaria.ListSecretariaTitle_senha}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.senha}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{secretariaController.prepareView}" value="#{secretaria.ListSecretariaViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{secretariaController.prepareEdit}" value="#{secretaria.ListSecretariaEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{secretariaController.destroy}" value="#{secretaria.ListSecretariaDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{secretariaController.prepareCreate}" value="#{secretaria.ListSecretariaCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{secretaria.ListSecretariaIndexLink}"/>
-            </h:form>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 
