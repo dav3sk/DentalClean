@@ -85,7 +85,7 @@
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{secretaria.Create}" actionListener="#{secretariaController.prepareCreate}" oncomplete="PF('SecretariaCreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{secretaria.View}" update=":SecretariaViewForm" oncomplete="PF('SecretariaViewDialog').show()" disabled="#{empty secretariaController.selected}"/>
                                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{secretaria.Edit}" update=":SecretariaEditForm" oncomplete="PF('SecretariaEditDialog').show()" disabled="#{empty secretariaController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{secretaria.Delete}" actionListener="#{secretariaController.destroy}" update=":growl,datalist" disabled="#{empty secretariaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{secretaria.Delete}" actionListener="#{secretariaController.destroy}" disabled="#{empty secretariaController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
