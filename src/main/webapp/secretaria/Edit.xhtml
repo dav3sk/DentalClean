@@ -31,7 +31,7 @@
                         <p:outputLabel value="#{secretaria.EditSecretariaLabel_senha}" for="senha" />
                         <p:inputText id="senha" value="#{secretariaController.selected.senha}" title="#{secretaria.EditSecretariaTitle_senha}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{secretariaController.update}" value="#{secretaria.Save}" update="display,:SecretariaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SecretariaEditDialog');"/>
+                    <p:commandButton actionListener="#{secretariaController.update}" value="#{secretaria.Save}" oncomplete="handleSubmit(args, 'SecretariaEditDialog');"/>
                     <p:commandButton value="#{secretaria.Cancel}" onclick="SecretariaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
