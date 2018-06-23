@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gohorse.dentalclean.model.entity;
 
 import java.io.Serializable;
@@ -15,10 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author dav3s
- */
 @Entity
 @Table(name="secretaria")
 public class Secretaria implements Serializable {
@@ -46,7 +37,7 @@ public class Secretaria implements Serializable {
     
     @Column(name="cpf",
             nullable=false,
-            length=11,
+            length=14,
             unique=true)
     private String cpf;
     
@@ -56,7 +47,7 @@ public class Secretaria implements Serializable {
     
     @Column(name="cep",
             nullable=false,
-            length=8)
+            length=9)
     private String cep;
     
     @Column(name="dataDeNascimento",
@@ -163,7 +154,17 @@ public class Secretaria implements Serializable {
 
     @Override
     public String toString() {
-        return "gohorse.dentalclean.model.Secret\u00e1ria[ id=" + id + " ]";
+        return "gohorse.dentalclean.model.Secretaria[ id="              + id +
+                                                    " nome= "           + nome +
+                                                    " telefone="        + telefone +  
+                                                    " email="           + email +
+                                                    " cpf="             + cpf +
+                                                    " rg="              + rg +
+                                                    " cep="             + cep +
+                                                    " dtNascimento="    + dataDeNascimento +
+                                                    " senha="           + senha + "]";
     }
+    
+    
     
 }
