@@ -18,16 +18,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("secretariaController")
+@Named("secretariaConsulta")
 @SessionScoped
-public class SecretariaController implements Serializable {
+public class SecretariaConsultaController implements Serializable {
 
     @EJB
     private gohorse.dentalclean.controller.SecretariaFacade ejbFacade;
     private List<Secretaria> items = null;
     private Secretaria selected = new Secretaria();
 
-    public SecretariaController() {
+    public SecretariaConsultaController() {
     }
 
     public Secretaria getSelected() {
@@ -59,10 +59,14 @@ public class SecretariaController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        
+        selected = new Secretaria();
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/secretaria").getString("SecretariaUpdated"));
+        
+        selected = new Secretaria();
     }
 
     public void destroy() {
@@ -128,7 +132,7 @@ public class SecretariaController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SecretariaController controller = (SecretariaController) facesContext.getApplication().getELResolver().
+            SecretariaConsultaController controller = (SecretariaConsultaController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "secretariaController");
             return controller.getSecretaria(getKey(value));
         }
