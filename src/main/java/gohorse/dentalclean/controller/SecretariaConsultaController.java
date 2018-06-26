@@ -25,9 +25,12 @@ public class SecretariaConsultaController implements Serializable {
     @EJB
     private gohorse.dentalclean.controller.SecretariaFacade ejbFacade;
     private List<Secretaria> items = null;
-    private Secretaria selected = new Secretaria();
+    private Secretaria selected;
+    private boolean editable;
 
     public SecretariaConsultaController() {
+        selected = new Secretaria();
+        editable = false;
     }
 
     public Secretaria getSelected() {
@@ -35,7 +38,27 @@ public class SecretariaConsultaController implements Serializable {
     }
 
     public void setSelected(Secretaria selected) {
+        System.out.println("sctr-[set]selected_"+selected.getNome());
         this.selected = selected;
+    }
+    
+    public boolean isEditable() {
+        return editable;
+    }
+    
+    public boolean isSelectedNull() {
+        return selected == null;
+    }
+
+    public void setEditable() {
+        if(editable == false) {
+            editable = true;
+        }
+        else {
+            editable = false;
+        }
+        
+        System.out.println("Edição:" + editable);
     }
 
     protected void setEmbeddableKeys() {
@@ -64,6 +87,7 @@ public class SecretariaConsultaController implements Serializable {
     }
 
     public void update() {
+        System.out.println("sctr-[update]selected_" + selected);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/secretaria").getString("SecretariaUpdated"));
         
         selected = new Secretaria();
@@ -78,9 +102,7 @@ public class SecretariaConsultaController implements Serializable {
     }
 
     public List<Secretaria> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        items = getFacade().findAll();
         return items;
     }
 
@@ -162,7 +184,5 @@ public class SecretariaConsultaController implements Serializable {
                 return null;
             }
         }
-
     }
-
 }
