@@ -8,30 +8,32 @@
 
     <ui:composition>
 
-        <p:dialog id="SecretariaViewDlg" widgetVar="SecretariaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{secretaria.ViewSecretariaTitle}">
+        <p:dialog id="SecretariaViewDlg" widgetVar="SecretariaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSecretariaTitle}">
             <h:form id="SecretariaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{secretariaController.selected != null}">
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_id}"/>
-                        <h:outputText value="#{secretariaController.selected.id}" title="#{secretaria.ViewSecretariaTitle_id}"/>
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_nome}"/>
-                        <h:outputText value="#{secretariaController.selected.nome}" title="#{secretaria.ViewSecretariaTitle_nome}"/>
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_telefone}"/>
-                        <h:outputText value="#{secretariaController.selected.telefone}" title="#{secretaria.ViewSecretariaTitle_telefone}"/>
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_email}"/>
-                        <h:outputText value="#{secretariaController.selected.email}" title="#{secretaria.ViewSecretariaTitle_email}"/>
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_cpf}"/>
-                        <h:outputText value="#{secretariaController.selected.cpf}" title="#{secretaria.ViewSecretariaTitle_cpf}"/>
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_rg}"/>
-                        <h:outputText value="#{secretariaController.selected.rg}" title="#{secretaria.ViewSecretariaTitle_rg}"/>
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_cep}"/>
-                        <h:outputText value="#{secretariaController.selected.cep}" title="#{secretaria.ViewSecretariaTitle_cep}"/>
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_dataDeNascimento}"/>
-                        <h:outputText value="#{secretariaController.selected.dataDeNascimento}" title="#{secretaria.ViewSecretariaTitle_dataDeNascimento}"/>
-                        <h:outputText value="#{secretaria.ViewSecretariaLabel_senha}"/>
-                        <h:outputText value="#{secretariaController.selected.senha}" title="#{secretaria.ViewSecretariaTitle_senha}"/>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_id}"/>
+                        <h:outputText value="#{secretariaController.selected.id}" title="#{bundle.ViewSecretariaTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_nome}"/>
+                        <h:outputText value="#{secretariaController.selected.nome}" title="#{bundle.ViewSecretariaTitle_nome}"/>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_telefone}"/>
+                        <h:outputText value="#{secretariaController.selected.telefone}" title="#{bundle.ViewSecretariaTitle_telefone}"/>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_email}"/>
+                        <h:outputText value="#{secretariaController.selected.email}" title="#{bundle.ViewSecretariaTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_cpf}"/>
+                        <h:outputText value="#{secretariaController.selected.cpf}" title="#{bundle.ViewSecretariaTitle_cpf}"/>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_rg}"/>
+                        <h:outputText value="#{secretariaController.selected.rg}" title="#{bundle.ViewSecretariaTitle_rg}"/>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_cep}"/>
+                        <h:outputText value="#{secretariaController.selected.cep}" title="#{bundle.ViewSecretariaTitle_cep}"/>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_dataDeNascimento}"/>
+                        <h:outputText value="#{secretariaController.selected.dataDeNascimento}" title="#{bundle.ViewSecretariaTitle_dataDeNascimento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSecretariaLabel_senha}"/>
+                        <h:outputText value="#{secretariaController.selected.senha}" title="#{bundle.ViewSecretariaTitle_senha}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{secretaria.Close}" onclick="SecretariaViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="SecretariaViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

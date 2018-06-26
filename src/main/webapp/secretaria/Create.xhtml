@@ -2,57 +2,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" 
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{secretaria.CreateSecretariaTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{secretariaController.selected.id}" title="#{secretaria.CreateSecretariaTitle_id}" />
+    <ui:composition>
 
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_nome}" for="nome" />
-                    <h:inputText id="nome" value="#{secretariaController.selected.nome}" title="#{secretaria.CreateSecretariaTitle_nome}" />
-
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_telefone}" for="telefone" />
-                    <h:inputText id="telefone" value="#{secretariaController.selected.telefone}" title="#{secretaria.CreateSecretariaTitle_telefone}" />
-
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{secretariaController.selected.email}" title="#{secretaria.CreateSecretariaTitle_email}" />
-
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_cpf}" for="cpf" />
-                    <h:inputText id="cpf" value="#{secretariaController.selected.cpf}" title="#{secretaria.CreateSecretariaTitle_cpf}" />
-
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_rg}" for="rg" />
-                    <h:inputText id="rg" value="#{secretariaController.selected.rg}" title="#{secretaria.CreateSecretariaTitle_rg}" />
-
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_cep}" for="cep" />
-                    <h:inputText id="cep" value="#{secretariaController.selected.cep}" title="#{secretaria.CreateSecretariaTitle_cep}" />
-
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_dataDeNascimento}" for="dataDeNascimento" />
-                    <h:inputText id="dataDeNascimento" value="#{secretariaController.selected.dataDeNascimento}" title="#{secretaria.CreateSecretariaTitle_dataDeNascimento}" />
-
-                    <h:outputLabel value="#{secretaria.CreateSecretariaLabel_senha}" for="senha" />
-                    <h:inputText id="senha" value="#{secretariaController.selected.senha}" title="#{secretaria.CreateSecretariaTitle_senha}" />
-
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{secretariaController.create}" value="#{secretaria.CreateSecretariaSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{secretariaController.prepareList}" value="#{secretaria.CreateSecretariaShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{secretaria.CreateSecretariaIndexLink}"/>
+        <p:dialog id="SecretariaCreateDlg" widgetVar="SecretariaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSecretariaTitle}">
+            <h:form id="SecretariaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secretariaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{secretariaController.selected.id}" title="#{bundle.CreateSecretariaTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{secretariaController.selected.nome}" title="#{bundle.CreateSecretariaTitle_nome}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_telefone}" for="telefone" />
+                        <p:inputText id="telefone" value="#{secretariaController.selected.telefone}" title="#{bundle.CreateSecretariaTitle_telefone}" />
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{secretariaController.selected.email}" title="#{bundle.CreateSecretariaTitle_email}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_email}"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_cpf}" for="cpf" />
+                        <p:inputText id="cpf" value="#{secretariaController.selected.cpf}" title="#{bundle.CreateSecretariaTitle_cpf}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_cpf}"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_rg}" for="rg" />
+                        <p:inputText id="rg" value="#{secretariaController.selected.rg}" title="#{bundle.CreateSecretariaTitle_rg}" />
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_cep}" for="cep" />
+                        <p:inputText id="cep" value="#{secretariaController.selected.cep}" title="#{bundle.CreateSecretariaTitle_cep}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_cep}"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_dataDeNascimento}" for="dataDeNascimento" />
+                        <p:calendar id="dataDeNascimento" pattern="MM/dd/yyyy" value="#{secretariaController.selected.dataDeNascimento}" title="#{bundle.EditSecretariaTitle_dataDeNascimento}" required="true" requiredMessage="#{bundle.EditSecretariaRequiredMessage_dataDeNascimento}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_senha}" for="senha" />
+                        <p:inputText id="senha" value="#{secretariaController.selected.senha}" title="#{bundle.CreateSecretariaTitle_senha}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_senha}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{secretariaController.create}" value="#{bundle.Save}" update="display,:SecretariaListForm:datalist,:growl" oncomplete="handleSubmit(args,'SecretariaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SecretariaCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>
