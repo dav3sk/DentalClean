@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SecretariaCreateDlg" widgetVar="SecretariaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSecretariaTitle}">
+            <h:form id="SecretariaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secretariaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{secretariaController.selected.id}" title="#{bundle.CreateSecretariaTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{secretariaController.selected.nome}" title="#{bundle.CreateSecretariaTitle_nome}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_telefone}" for="telefone" />
+                        <p:inputText id="telefone" value="#{secretariaController.selected.telefone}" title="#{bundle.CreateSecretariaTitle_telefone}" />
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{secretariaController.selected.email}" title="#{bundle.CreateSecretariaTitle_email}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_email}"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_cpf}" for="cpf" />
+                        <p:inputText id="cpf" value="#{secretariaController.selected.cpf}" title="#{bundle.CreateSecretariaTitle_cpf}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_cpf}"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_rg}" for="rg" />
+                        <p:inputText id="rg" value="#{secretariaController.selected.rg}" title="#{bundle.CreateSecretariaTitle_rg}" />
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_cep}" for="cep" />
+                        <p:inputText id="cep" value="#{secretariaController.selected.cep}" title="#{bundle.CreateSecretariaTitle_cep}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_cep}"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_dataDeNascimento}" for="dataDeNascimento" />
+                        <p:calendar id="dataDeNascimento" pattern="MM/dd/yyyy" value="#{secretariaController.selected.dataDeNascimento}" title="#{bundle.EditSecretariaTitle_dataDeNascimento}" required="true" requiredMessage="#{bundle.EditSecretariaRequiredMessage_dataDeNascimento}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateSecretariaLabel_senha}" for="senha" />
+                        <p:inputText id="senha" value="#{secretariaController.selected.senha}" title="#{bundle.CreateSecretariaTitle_senha}" required="true" requiredMessage="#{bundle.CreateSecretariaRequiredMessage_senha}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{secretariaController.create}" value="#{bundle.Save}" update="display,:SecretariaListForm:datalist,:growl" oncomplete="handleSubmit(args,'SecretariaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SecretariaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
