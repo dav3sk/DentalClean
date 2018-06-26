@@ -42,7 +42,7 @@ public class Secretaria implements Serializable {
     private String cpf;
     
     @Column(name="rg",
-            length=10)
+            length=12)
     private String rg;
     
     @Column(name="cep",
@@ -69,6 +69,7 @@ public class Secretaria implements Serializable {
     }
 
     public String getNome() {
+        System.out.println("sctr_"+nome);
         return nome;
     }
 
@@ -154,15 +155,15 @@ public class Secretaria implements Serializable {
 
     @Override
     public String toString() {
-        return "gohorse.dentalclean.model.Secretaria[ id="              + id +
-                                                    " nome= "           + nome +
-                                                    " telefone="        + telefone +  
-                                                    " email="           + email +
-                                                    " cpf="             + cpf +
-                                                    " rg="              + rg +
-                                                    " cep="             + cep +
-                                                    " dtNascimento="    + dataDeNascimento +
-                                                    " senha="           + senha + "]";
+        return "Secretaria[ id="              + id +
+                          " nome= "           + nome +
+                          " telefone="        + telefone +  
+                          " email="           + email +
+                          " cpf="             + cpf +
+                          " rg="              + rg +
+                          " cep="             + cep +
+                          " dtNascimento="    + dataDeNascimento +
+                          " senha="           + senha + "]";
     }
     
     
