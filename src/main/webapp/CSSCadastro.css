@@ -1,0 +1,111 @@
+.centralizado {
+    margin: auto;
+    width: 100%;
+    border: 1px solid #73AD21;
+    padding: 10px;
+}
+
+.painel {
+    border: solid;
+    width: 50%;
+    margin: auto;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    position: inherit;
+}
+
+.titulo {
+    margin: auto;
+    text-align: center;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    font-weight:300;
+    font-size: 2em;
+    line-height: 1.4em;
+    margin-bottom: 0.5em;
+    color: #23b5b9;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.campoDeTexto{
+    width: 100% !important;
+    border: 1px solid #ccc!important;
+    border-radius: 0px!important;
+    box-sizing: border-box!important;
+    resize: vertical!important;
+    box-shadow: none!important;
+}
+
+.campoDeTexto:focus{
+    box-shadow: 0 0 1px rgba(81, 203, 238, 1)!important;
+    border: 1px solid rgba(81, 203, 238, 1)!important;
+}
+
+.campoDeTexto:invalid{
+    box-shadow: 0 0 1px rgba(255, 76, 43, 1)!important;
+    border: 1px solid rgba(81, 203, 238, 1)!important;
+}
+
+.campoDeTexto:required {
+    box-shadow: 0 0 1px rgba(255, 76, 43, 1)!important;
+    border: 1px solid rgba(81, 203, 238, 1)!important;
+}
+
+.semBorda tr, .semBorda td {
+	border: none !important;
+}
+
+.botao {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.botaoAzul {
+    background-color: white;
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.botaoAzul:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.ui-growl-image-info ~ .ui-growl-message {
+    font: 14px "Lucida Console", Monaco, monospace !important;
+    background-color: green;
+    border-color: green;
+    letter-spacing: -1px !important;
+    width: 300px !important;
+    text-align: center !important;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2) !important;
+    color: black !important;
+}
+
+.ui-growl-message-error .ui-growl-item {
+  background-color: #cc3f3c !important;
+}
+  
+.ui-growl-message-info .ui-growl-item {
+  background-color: #3877d4 !important;
+}
+  
+.ui-growl-message-warn .ui-growl-item {
+  background-color: #f5de0e !important;
+}
+
+.ui-growl-message-success .ui-growl-item {
+  background-color: #42A948 !important;
+}
