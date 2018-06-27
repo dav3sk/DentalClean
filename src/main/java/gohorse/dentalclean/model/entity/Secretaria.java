@@ -150,7 +150,6 @@ public class Secretaria implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Secretaria)) {
             return false;
         }
@@ -170,8 +169,7 @@ public class Secretaria implements Serializable {
                           " cpf="             + cpf +
                           " rg="              + rg +
                           " cep="             + cep +
-                          " dtNascimento="    + dataDeNascimento +
-                          " senha="           + senha + "]";
+                          " dtNascimento="    + dataDeNascimento + "]";
     }
     
     

@@ -149,7 +149,6 @@ public class Dentista implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Dentista)) {
             return false;
         }
@@ -162,7 +161,14 @@ public class Dentista implements Serializable {
 
     @Override
     public String toString() {
-        return "gohorse.dentalclean.model.entity.Dentista[ id=" + id + " ]";
+        return "Dentista[ id="                + id +
+                          " nome= "           + nome +
+                          " telefone="        + telefone +  
+                          " email="           + email +
+                          " cpf="             + cpf +
+                          " rg="              + rg +
+                          " cep="             + cep +
+                          " dtNascimento="    + dataDeNascimento + "]";
     }
     
 }

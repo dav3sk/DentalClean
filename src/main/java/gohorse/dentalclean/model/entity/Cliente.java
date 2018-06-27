@@ -150,7 +150,6 @@ public class Cliente implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Cliente)) {
             return false;
         }
@@ -163,7 +162,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente[ id="              + id +
+        return "Cliente[ id="                 + id +
                           " nome= "           + nome +
                           " telefone="        + telefone +  
                           " email="           + email +
