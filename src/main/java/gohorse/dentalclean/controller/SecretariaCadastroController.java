@@ -62,19 +62,7 @@ public class SecretariaCadastroController implements Serializable {
         }
         
         selected = new Secretaria();
-        exibirMensagem();
     }
-
-    // ----- Adição externa ------
-    public void exibirMensagem() {
-        adicionarMessage("Secretária cadastrada com sucesso", "");
-    }
-     
-    public void adicionarMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-    // ---------------------------
     
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/secretaria").getString("SecretariaUpdated"));
@@ -108,19 +96,10 @@ public class SecretariaCadastroController implements Serializable {
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/secretaria").getString("PersistenceErrorOccured"));
-                }
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/secretaria").getString("PersistenceErrorOccured"));
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/secretaria").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/secretaria").getString("PersistenceErrorOccured"));
             }
         }
     }
