@@ -55,6 +55,10 @@ public class Secretaria implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataDeNascimento;
     
+    @Column(name="nivelAcesso",
+            length=14)
+    private final String nivelAcesso = "SECRETARIA";
+    
     @Column(name="senha",
             nullable=false,
             length=35)
@@ -125,6 +129,10 @@ public class Secretaria implements Serializable {
         this.dataDeNascimento = dataDeNascimento;
     }
 
+    public String getNivelAcesso() {
+        return nivelAcesso;
+    }
+    
     public String getSenha() {
         return senha;
     }

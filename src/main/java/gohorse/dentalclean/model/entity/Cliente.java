@@ -57,8 +57,8 @@ public class Cliente implements Serializable {
     private Date dataDeNascimento;
     
     @Column(name="nivelAcesso",
-            columnDefinition="char(14) default 'CLIENTE'")
-    private String nivelAcesso;
+            length=14)
+    private final String nivelAcesso = "CLIENTE";
     
     @Column(name="senha",
             nullable=false,
