@@ -9,5 +9,10 @@
             <base-name>/secretaria</base-name>
             <var>secretaria</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/cliente</base-name>
+            <var>cliente</var>
+        </resource-bundle>
+
     </application>
 </faces-config>

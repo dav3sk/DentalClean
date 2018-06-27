@@ -3,7 +3,8 @@
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:f="http://java.sun.com/jsf/core"
              xmlns:h="http://java.sun.com/jsf/html"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content"> 
         <!-- main content start-->
@@ -13,52 +14,78 @@
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-body">
                             <div id="cadastro">
-                                <form action="#" method="post"> 
-                                    <h2 class="tittle">CADASTRO DE CLIENTE</h2>
-                                    <div class="field-wrap">
-                                        <label> Nome<span class="req">*</span>  </label>
-                                        <input type="text" autocomplete="off">
-                                        </input>
-                                    </div> 
-                                    <div class="field-wrap">
-                                        <label> Data de Nascimento<span class="req">*</span> </label>
-                                        <input type="email" autocomplete="off">
-                                        </input>
-                                    </div>
-                                    <div class="field-wrap">
-                                        <label> Telefone<span class="req">*</span> </label>
-                                        <input type="email" autocomplete="off">
-                                        </input>
-                                    </div>
-                                    <div class="field-wrap">
-                                        <label> CPF<span class="req">*</span> </label>
-                                        <input type="email" autocomplete="off">
-                                        </input>
-                                    </div>
-                                    <div class="field-wrap">
-                                        <label> CEP<span class="req">*</span> </label>
-                                        <input type="email" autocomplete="off">
-                                        </input>
-                                    </div>
-                                    <div class="field-wrap">
-                                        <label> Email<span class="req">*</span> </label>
-                                        <input type="email" autocomplete="off">
-                                        </input>
-                                    </div> 
-                                    <div class="field-wrap">
-                                        <label> Senha<span class="req">*</span> </label>
-                                        <input type="password" autocomplete="off">
-                                        </input>
-                                    </div>
-                                    <div class="field-wrap">
-                                        <label> Repita a Senha<span class="req">*</span> </label>
-                                        <input type="password" autocomplete="off">
-                                        </input>
-                                    </div>
-                                    <input value="Registrar" type="button" class="button button-block">
+                                <h:form >   
+                                    <h2 class="titulo">CADASTRO DE CLIENTE</h2>
 
-                                    </input>
-                                </form> 
+                                    <p:panelGrid columns="3" class="semBorda">
+                                        <h:outputText value="Nome*:" />
+                                        <p:inputText id="nome" class="campoDeTexto" required="true" value="#{clienteCadastro.selected.nome}" title="#{cliente.CreateClienteTitle_nome}" 
+                                                     validatorMessage="Insira um nome válido" 
+                                                     requiredMessage="Este campo não pode ficar vazio">
+                                            <f:validateRequired/>
+                                            <f:validateLength minimum="4" maximum="100" />
+                                            <p:ajax update="msgNome" event="keyup" />
+                                        </p:inputText>
+                                        <p:message id="msgNome" for="nome" display="text" />
+
+                                        <h:outputText value="Data de Nascimento*:" />
+                                        <p:inputMask requiredMessage="Este campo não pode ficar vazio" converterMessage="Insira uma data de nascimento válida" class="campoDeTexto" id="dataDeNascimento" value="#{clienteCadastro.selected.dataDeNascimento}" title="#{cliente.CreateClienteTitle_dataDeNascimento}" mask="99/99/9999">
+                                            <f:validateRequired/>
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <p:ajax update="msgDataDeNascimento" event="keyup" />
+                                        </p:inputMask>
+                                        <p:message id="msgDataDeNascimento" for="dataDeNascimento" display="text"  />
+
+                                        <h:outputText value="Telefone*:" />
+                                        <p:inputMask requiredMessage="Este campo não pode ficar vazio" class="campoDeTexto" id="telefone" value="#{clienteCadastro.selected.telefone}" title="#{cliente.CreateClienteTitle_telefone}" mask="(99)99999-9999">
+                                            <f:validateRequired/>
+                                            <p:ajax update="msgTelefone" event="keyup" />
+                                        </p:inputMask>
+                                        <p:message id="msgTelefone" for="telefone" display="text" />
+
+                                        <h:outputText value="CPF*:" />
+                                        <p:inputMask requiredMessage="Este campo não pode ficar vazio" class="campoDeTexto" id="cpf" value="#{clienteCadastro.selected.cpf}" title="#{cliente.CreateClienteTitle_cpf}" mask="999.999.999-99">
+                                            <f:validateRequired/>
+                                            <p:ajax update="msgCPF" event="keyup" />
+                                        </p:inputMask>
+                                        <p:message id="msgCPF" for="cpf" display="text" />
+
+                                        <h:outputText value="RG:" />
+                                        <p:inputMask class="campoDeTexto" id="rg" value="#{clienteCadastro.selected.rg}" title="#{cliente.CreateClienteTitle_rg}" mask="99.999.999-9">
+                                            <p:ajax update="msgRg" event="keyup" />
+                                        </p:inputMask>
+                                        <p:message id="msgRg" for="rg" display="text" />
+
+                                        <h:outputText value="CEP*:" />
+                                        <p:inputMask requiredMessage="Este campo não pode ficar vazio" class="campoDeTexto" id="cep" value="#{clienteCadastro.selected.cep}" title="#{cliente.CreateClienteTitle_cep}" mask="99999-999">
+                                            <f:validateRequired/>
+                                            <p:ajax update="msgCEP" event="keyup" />
+                                        </p:inputMask>
+                                        <p:message id="msgCEP" for="cep" display="text" />
+
+                                        <h:outputText value="Email*" />
+                                        <p:inputText requiredMessage="Este campo não pode ficar vazio" class="campoDeTexto" id="email" value="#{clienteCadastro.selected.email}" title="#{cliente.CreateClienteTitle_email}">
+                                            <f:validateRequired/>
+                                            <p:ajax update="msgEmail" event="keyup" />
+                                        </p:inputText>
+                                        <p:message id="msgEmail" for="email" display="text" />
+
+                                        <h:outputText value="Senha*:" />
+                                        <p:inputText requiredMessage="Este campo não pode ficar vazio"  class="campoDeTexto" id="senha" value="#{clienteCadastro.selected.senha}" title="#{cliente.CreateClienteTitle_senha}">
+                                            <f:validateRequired/>
+                                            <p:ajax update="msgSenha" event="keyup" />
+                                        </p:inputText>
+                                        <p:message id="msgSenha" for="senha" display="text" />
+                                    </p:panelGrid>
+
+                                    <br></br>
+
+                                    <div>
+                                        <h:commandLink styleClass="botao botaoAzul" type="button" action="#{clienteCadastro.create}" value="#{cliente.CreateClienteSaveLink}"/>
+                                    </div>
+
+                                    <p:growl severity="fatal, info" sticky="false" id="message" showDetail="false" />
+                                </h:form>
                             </div>
                         </div>
                     </div>
