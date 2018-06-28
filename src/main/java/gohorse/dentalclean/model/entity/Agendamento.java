@@ -42,6 +42,48 @@ public class Agendamento implements Serializable {
         this.id = id;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Dentista getDentista() {
+        return dentista;
+    }
+
+    public void setDentista(Dentista dentista) {
+        this.dentista = dentista;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public Date getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Date horario) {
+        this.horario = horario;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
