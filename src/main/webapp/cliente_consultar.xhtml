@@ -3,50 +3,146 @@
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:f="http://java.sun.com/jsf/core"
              xmlns:h="http://java.sun.com/jsf/html"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h:body>
-            <!-- main content start-->
-            <div id="page-wrapper">		
-                <div class="main-page">
-                    <div class="tables">
-                        <div class="table-responsive bs-example widget-shadow">
-                            <h2 class="tittle">CONSULTA DE CLIENTES</h2>
-                            <div class="field-wrap">
-                                <label> Buscar Cliente </label>
-                                <input type="email" autocomplete="off">
-                                </input>
-                            </div>
-                            <table class="table table-bordered"> 
-                                <thead> 
-                                    <tr> 
-                                        <th>ID</th> 
-                                        <th style="width: 30%" >Nome</th> 
-                                        <th style="width: 15%" >Telefone</th> 
-                                        <th style="width: 20%" >CPF</th> 
-                                        <th style="width: 35%" >Email</th> 
-                                    </tr> 
-                                </thead> 
-                                <tbody> 
-                                    <tr> 
-                                        <th scope="row"></th> 
-                                        <td></td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody> 
-                            </table> 
-                            <div>
-                                <input value="EDITAR" style="background-color: #23B5B9; width: 20%; color: BLACK;" type="button" class="button button-block">
-                                </input>
-                                <input value="REMOVER" style="background-color: #ff0000; width: 20%;" type="button" class="button button-block">
-                                </input>
-                            </div>
+        <!-- main content start-->
+        <div id="page-wrapper">		
+            <div class="main-page">
+                <div class="forms">
+                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+                        <div class="form-body">
+                            <h:form id="Consulta">
+                                <h2 class="titulo">CONSULTA DE CLIENTE</h2>
+                                <!-- cliente table -->
+                                <p:dataTable  id="clientelist" widgetVar="item" var="item" value="#{clienteConsulta.items}"
+                                              rowKey="#{item.id}" 
+                                              selection="#{clienteConsulta.selected}" selectionMode="single"
+                                              paginator="true" rows="10"
+                                              paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                              rowsPerPageTemplate="5,10,15"
+                                              emptyMessage="Não foi encontrado nenhum dado na tabela"
+                                              rowStyleClass="coluna"
+                                              >
+
+                                    <f:facet name="header">
+                                        <p:outputPanel>
+                                            <h:outputText value="Buscar em todos os campos:" />
+                                            <p:inputText id="globalFilter" onkeyup="PF('item').filter()" style="width:150px" placeholder="Insira um parâmetro de busca"/>
+                                        </p:outputPanel>
+                                    </f:facet>
+
+                                    <p:ajax event="rowSelect"   update="editButton, formDelete:deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="editButton, formDelete:deleteButton"/>
+
+                                    <p:column headerText="Nome" sortBy="#{item.nome}" filterBy="#{item.nome}">
+                                        <h:outputText value="#{item.nome}" />
+                                    </p:column>
+                                    <p:column headerText="Telefone" sortBy="#{item.telefone}" filterBy="#{item.telefone}">
+                                        <h:outputText value="#{item.telefone}" />
+                                    </p:column>
+                                    <p:column headerText="E-mail" sortBy="#{item.email}" filterBy="#{item.email}">
+                                        <h:outputText value="#{item.email}" />
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton id="editButton" icon="ui-icon-pencil" value="#{cliente.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{clienteConsulta.isSelectedNull()}"/>
+
+                                        <h:form id="formDelete">
+                                            <p:commandButton id="deleteButton" icon="ui-icon-trash" oncomplete="PF('confirmation').show()" value="#{cliente.Delete}" disabled="#{clienteConsulta.isSelectedNull()}">
+                                                <p:confirm header="Remover cliente" message="Tem certeza que deseja remover este usuário do sistema?" icon="ui-icon-alert" />
+                                            </p:commandButton>
+
+                                            <p:confirmDialog global="true" showEffect="fold" hideEffect="fold">
+                                                <p:commandButton actionListener="#{clienteConsulta.destroy}" value="Sim" update=":Consulta:clientelist:msg"  onsuccess="location.reload();" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                            </p:confirmDialog>
+                                        </h:form>
+                                    </f:facet>
+
+                                    <p:growl severity="error, fatal, info" sticky="false" id="msg" showDetail="false" />
+                                </p:dataTable>
+                                <!-- //cliente table -->
+                            </h:form>
+
+                            <!-- selected item edit -->
+                            <p:dialog id="ClienteEditDlg" showEffect="fold" hideEffect="fold" widgetVar="ClienteEditDialog" draggable="false" modal="true" resizable="false" header="#{cliente.EditClienteTitle}">
+                                <h:form id="ClienteEditForm" style="width: 500px;">
+                                    <h:panelGroup id="display">
+                                        <p:panelGrid columns="3" class="semBorda" rendered="#{not empty clienteConsulta.selected}" >
+                                            <p:outputLabel value="#{cliente.EditClienteLabel_nome}" for="nome" />
+                                            <p:inputText id="nome" value="#{clienteConsulta.selected.nome}" title="#{cliente.CreateClienteTitle_nome}"
+                                                         validatorMessage="Insira um nome válido" 
+                                                         requiredMessage="O campo nome não pode ficar vazio">
+                                                <f:validateRequired/>
+                                                <f:validateLength minimum="4" maximum="100" />
+                                                <p:ajax update="msgNome" event="keyup" />
+                                            </p:inputText>
+                                            <p:message id="msgNome" for="nome" display="text" />
+
+                                            <p:outputLabel value="#{cliente.EditClienteLabel_dataDeNascimento}" for="dataDeNascimento" />
+                                            <p:inputMask id="dataDeNascimento" value="#{clienteConsulta.selected.dataDeNascimento}" title="#{cliente.CreateClienteTitle_nome}" mask="99/99/9999"
+                                                         requiredMessage="O campo data de nascimento não pode ficar vazio" 
+                                                         converterMessage="Insira uma data de nascimento válida">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                <f:validateRequired/>
+                                                <p:ajax update="msgDataDeNascimento" event="keyup" />
+                                            </p:inputMask>
+                                            <p:message id="msgDataDeNascimento" for="dataDeNascimento" display="text"  />
+
+                                            <p:outputLabel value="#{cliente.EditClienteLabel_telefone}" for="telefone" />
+                                            <p:inputMask id="telefone" value="#{clienteConsulta.selected.telefone}" title="#{cliente.CreateClienteTitle_telefone}" mask="(99)99999-9999"
+                                                         requiredMessage="O campo telefone não pode ficar vazio">
+                                                <f:validateRequired/>
+                                                <p:ajax update="msgTelefone" event="keyup" />
+                                            </p:inputMask>
+                                            <p:message id="msgTelefone" for="telefone" display="text" />
+
+                                            <p:outputLabel value="#{cliente.EditClienteLabel_cpf}" for="cpf" />
+                                            <p:inputMask id="cpf" value="#{clienteConsulta.selected.cpf}" title="#{cliente.CreateClienteTitle_cpf}" mask="999.999.999-99"
+                                                         requiredMessage="O campo CPF não pode ficar vazio">
+                                                <f:validateRequired/>
+                                                <p:ajax update="msgCPF" event="keyup" />
+                                            </p:inputMask>
+                                            <p:message id="msgCPF" for="cpf" display="text" />
+
+                                            <p:outputLabel value="#{cliente.EditClienteLabel_rg}" for="rg" />
+                                            <p:inputMask id="rg" value="#{clienteConsulta.selected.rg}" title="#{cliente.EditClienteTitle_rg}" mask="99.999.999-9">
+                                                <p:ajax update="msgRg" event="keyup" />
+                                            </p:inputMask>
+                                            <p:message id="msgRg" for="rg" display="text" />
+
+                                            <p:outputLabel value="#{cliente.EditClienteLabel_cep}" for="cep" />
+                                            <p:inputMask id="cep" value="#{clienteConsulta.selected.cep}" title="#{cliente.CreateClienteTitle_cep}" mask="99999-999"
+                                                         requiredMessage="O campo CEP não pode ficar vazio">
+                                                <f:validateRequired/>
+                                                <p:ajax update="msgCEP" event="keyup" />
+                                            </p:inputMask>
+                                            <p:message id="msgCEP" for="cep" display="text" />
+
+                                            <p:outputLabel value="#{cliente.EditClienteLabel_email}" for="email" />
+                                            <p:inputText id="email" value="#{clienteConsulta.selected.email}" title="#{cliente.CreateClienteTitle_email}"
+                                                         requiredMessage="O campo email não pode ficar vazio">
+                                                <f:validateRequired/>
+                                                <p:ajax update="msgEmail" event="keyup" />
+                                            </p:inputText>
+                                            <p:message id="msgEmail" for="email" display="text" />
+                                        </p:panelGrid>
+
+                                        <p:commandButton actionListener="#{clienteConsulta.update}" value="#{cliente.Save}" 
+                                                         update=":Consulta, message" onsuccess="PF('ClienteEditDialog').hide()"/>
+                                        <p:commandButton value="#{cliente.Cancel}" onsuccess="PF('ClienteEditDialog').hide()" />
+
+                                        <p:growl severity="error, fatal, info" sticky="false" id="message" showDetail="false" />
+                                    </h:panelGroup>
+                                </h:form>
+                            </p:dialog>
+                            <!-- //selected item edit --> 
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </ui:define>
 </ui:decorate>
