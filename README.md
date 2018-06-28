@@ -24,10 +24,9 @@
  10. git pull origin master
 
 ## Aplicar proxy:
-
-git config --global http.proxy http://proxy:8080
-git config --global https.proxy https://proxy:8080
+ 1. git config --global http.proxy http://proxy:8080
+ 2. git config --global https.proxy https://proxy:8080
 
 ## Desaplicar proxy:
-git config --global --unset http.proxy
-git config --global --unset https.proxy
+ 1. git config --global --unset http.proxy
+ 2. git config --global --unset https.proxy
