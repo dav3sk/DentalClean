@@ -1,6 +1,6 @@
 package gohorse.dentalclean.controller;
 
-import gohorse.dentalclean.model.entity.Secretaria;
+import gohorse.dentalclean.model.entity.Dentista;
 import gohorse.dentalclean.controller.util.JsfUtil;
 import gohorse.dentalclean.controller.util.JsfUtil.PersistAction;
 
@@ -18,23 +18,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("secretariaCadastro")
+@Named("dentistaCadastro")
 @SessionScoped
-public class SecretariaCadastroController implements Serializable {
+public class DentistaCadastroController implements Serializable {
 
     @EJB
-    private gohorse.dentalclean.controller.SecretariaFacade ejbFacade;
-    private List<Secretaria> items = null;
-    private Secretaria selected = new Secretaria();
+    private gohorse.dentalclean.controller.DentistaFacade ejbFacade;
+    private List<Dentista> items = null;
+    private Dentista selected = new Dentista();
 
-    public SecretariaCadastroController() {
+    public DentistaCadastroController() {
     }
 
-    public Secretaria getSelected() {
+    public Dentista getSelected() {
         return selected;
     }
 
-    public void setSelected(Secretaria selected) {
+    public void setSelected(Dentista selected) {
         this.selected = selected;
     }
 
@@ -44,40 +44,40 @@ public class SecretariaCadastroController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private SecretariaFacade getFacade() {
+    private DentistaFacade getFacade() {
         return ejbFacade;
     }
 
-    public Secretaria prepareCreate() {
+    public Dentista prepareCreate() {
         
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/secretaria").getString("SecretariaCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/dentista").getString("DentistaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
         
-        selected = new Secretaria();
+        selected = new Dentista();
     }
     
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/secretaria").getString("SecretariaUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/dentista").getString("DentistaUpdated"));
         
-        selected = new Secretaria();
+        selected = new Dentista();
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/secretaria").getString("SecretariaDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/dentista").getString("DentistaDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Secretaria> getItems() {
+    public List<Dentista> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -95,37 +95,37 @@ public class SecretariaCadastroController implements Serializable {
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
-                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/secretaria").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/dentista").getString("PersistenceErrorOccured"));
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/secretaria").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/dentista").getString("PersistenceErrorOccured"));
             }
         }
     }
 
-    public Secretaria getSecretaria(java.lang.Long id) {
+    public Dentista getDentista(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Secretaria> getItemsAvailableSelectMany() {
+    public List<Dentista> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Secretaria> getItemsAvailableSelectOne() {
+    public List<Dentista> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Secretaria.class)
-    public static class SecretariaControllerConverter implements Converter {
+    @FacesConverter(forClass = Dentista.class)
+    public static class DentistaControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SecretariaCadastroController controller = (SecretariaCadastroController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "secretariaController");
-            return controller.getSecretaria(getKey(value));
+            DentistaCadastroController controller = (DentistaCadastroController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "dentistaController");
+            return controller.getDentista(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -145,11 +145,11 @@ public class SecretariaCadastroController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Secretaria) {
-                Secretaria o = (Secretaria) object;
+            if (object instanceof Dentista) {
+                Dentista o = (Dentista) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Secretaria.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Dentista.class.getName()});
                 return null;
             }
         }
