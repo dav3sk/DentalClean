@@ -55,6 +55,10 @@ public class Secretaria implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataDeNascimento;
     
+    @Column(name="nivelAcesso",
+            length=14)
+    private final String nivelAcesso = "SECRETARIA";
+    
     @Column(name="senha",
             nullable=false,
             length=35)
@@ -125,6 +129,10 @@ public class Secretaria implements Serializable {
         this.dataDeNascimento = dataDeNascimento;
     }
 
+    public String getNivelAcesso() {
+        return nivelAcesso;
+    }
+    
     public String getSenha() {
         return senha;
     }
@@ -142,7 +150,6 @@ public class Secretaria implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Secretaria)) {
             return false;
         }
@@ -162,8 +169,7 @@ public class Secretaria implements Serializable {
                           " cpf="             + cpf +
                           " rg="              + rg +
                           " cep="             + cep +
-                          " dtNascimento="    + dataDeNascimento +
-                          " senha="           + senha + "]";
+                          " dtNascimento="    + dataDeNascimento + "]";
     }
     
     

@@ -3,6 +3,9 @@
   <persistence-unit name="goHorse_DentalClean_war_2.0PU" transaction-type="JTA">
     <jta-data-source>java:app/DentalC.JNDI</jta-data-source>
     <class>gohorse.dentalclean.model.entity.Secretaria</class>
+    <class>gohorse.dentalclean.model.entity.Cliente</class>
+    <class>gohorse.dentalclean.model.entity.Dentista</class>
+    <class>gohorse.dentalclean.model.entity.Agendamento</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

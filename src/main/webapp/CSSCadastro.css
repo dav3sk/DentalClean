@@ -43,16 +43,6 @@
     border: 1px solid rgba(81, 203, 238, 1)!important;
 }
 
-.campoDeTexto:invalid{
-    box-shadow: 0 0 1px rgba(255, 76, 43, 1)!important;
-    border: 1px solid rgba(81, 203, 238, 1)!important;
-}
-
-.campoDeTexto:required {
-    box-shadow: 0 0 1px rgba(255, 76, 43, 1)!important;
-    border: 1px solid rgba(81, 203, 238, 1)!important;
-}
-
 .semBorda tr, .semBorda td {
 	border: none !important;
 }
@@ -65,7 +55,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 13px;
     margin: 4px 2px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
@@ -81,31 +71,4 @@
 .botaoAzul:hover {
     background-color: #008CBA;
     color: white;
-}
-
-.ui-growl-image-info ~ .ui-growl-message {
-    font: 14px "Lucida Console", Monaco, monospace !important;
-    background-color: green;
-    border-color: green;
-    letter-spacing: -1px !important;
-    width: 300px !important;
-    text-align: center !important;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.2) !important;
-    color: black !important;
-}
-
-.ui-growl-message-error .ui-growl-item {
-  background-color: #cc3f3c !important;
-}
-  
-.ui-growl-message-info .ui-growl-item {
-  background-color: #3877d4 !important;
-}
-  
-.ui-growl-message-warn .ui-growl-item {
-  background-color: #f5de0e !important;
-}
-
-.ui-growl-message-success .ui-growl-item {
-  background-color: #42A948 !important;
 }

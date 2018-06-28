@@ -1,9 +1,7 @@
 package gohorse.dentalclean.controller;
 
-import gohorse.dentalclean.model.entity.Secretaria;
 import gohorse.dentalclean.controller.util.JsfUtil;
-import gohorse.dentalclean.controller.util.JsfUtil.PersistAction;
-
+import gohorse.dentalclean.model.entity.Cliente;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,30 +9,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 
-@Named("secretariaCadastro")
+@Named("clienteCadastro")
 @SessionScoped
-public class SecretariaCadastroController implements Serializable {
+public class ClienteCadastroController implements Serializable {
 
     @EJB
-    private gohorse.dentalclean.controller.SecretariaFacade ejbFacade;
-    private List<Secretaria> items = null;
-    private Secretaria selected = new Secretaria();
+    private gohorse.dentalclean.controller.ClienteFacade ejbFacade;
+    private List<Cliente> items = null;
+    private Cliente selected = new Cliente();
 
-    public SecretariaCadastroController() {
+    public ClienteCadastroController() {
     }
 
-    public Secretaria getSelected() {
+    public Cliente getSelected() {
         return selected;
     }
 
-    public void setSelected(Secretaria selected) {
+    public void setSelected(Cliente selected) {
         this.selected = selected;
     }
 
@@ -44,51 +43,51 @@ public class SecretariaCadastroController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private SecretariaFacade getFacade() {
+    private ClienteFacade getFacade() {
         return ejbFacade;
     }
 
-    public Secretaria prepareCreate() {
+    public Cliente prepareCreate() {
         
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/secretaria").getString("SecretariaCreated"));
+        persist(JsfUtil.PersistAction.CREATE, ResourceBundle.getBundle("/cliente").getString("ClienteCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
         
-        selected = new Secretaria();
+        selected = new Cliente();
     }
     
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/secretaria").getString("SecretariaUpdated"));
+        persist(JsfUtil.PersistAction.UPDATE, ResourceBundle.getBundle("/cliente").getString("ClienteUpdated"));
         
-        selected = new Secretaria();
+        selected = new Cliente();
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/secretaria").getString("SecretariaDeleted"));
+        persist(JsfUtil.PersistAction.DELETE, ResourceBundle.getBundle("/cliente").getString("ClienteDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Secretaria> getItems() {
+    public List<Cliente> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    private void persist(JsfUtil.PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction != JsfUtil.PersistAction.DELETE) {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
@@ -98,34 +97,34 @@ public class SecretariaCadastroController implements Serializable {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/secretaria").getString("PersistenceErrorOccured"));
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/secretaria").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/cliente").getString("PersistenceErrorOccured"));
             }
         }
     }
 
-    public Secretaria getSecretaria(java.lang.Long id) {
+    public Cliente getCliente(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Secretaria> getItemsAvailableSelectMany() {
+    public List<Cliente> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Secretaria> getItemsAvailableSelectOne() {
+    public List<Cliente> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Secretaria.class)
-    public static class SecretariaControllerConverter implements Converter {
+    @FacesConverter(forClass = Cliente.class)
+    public static class ClienteControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SecretariaCadastroController controller = (SecretariaCadastroController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "secretariaController");
-            return controller.getSecretaria(getKey(value));
+            ClienteCadastroController controller = (ClienteCadastroController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "clienteCadastro");
+            return controller.getCliente(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -145,11 +144,11 @@ public class SecretariaCadastroController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Secretaria) {
-                Secretaria o = (Secretaria) object;
+            if (object instanceof Cliente) {
+                Cliente o = (Cliente) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Secretaria.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Cliente.class.getName()});
                 return null;
             }
         }
