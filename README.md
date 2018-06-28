@@ -22,3 +22,12 @@
  8. Na página da Pull Request no GitHub: realizar o merge.
  9. git checkout master
  10. git pull origin master
+
+## Aplicar proxy:
+
+git config --global http.proxy http://proxy:8080
+git config --global https.proxy https://proxy:8080
+
+## Desaplicar proxy:
+git config --global --unset http.proxy
+git config --global --unset https.proxy
