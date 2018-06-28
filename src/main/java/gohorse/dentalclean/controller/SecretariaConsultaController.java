@@ -90,7 +90,7 @@ public class SecretariaConsultaController implements Serializable {
         System.out.println("sctr-[update]selected_" + selected);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/secretaria").getString("SecretariaUpdated"));
         
-        selected = new Secretaria();
+        selected = null;
     }
 
     public void destroy() {
@@ -99,6 +99,7 @@ public class SecretariaConsultaController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        selected = null;
     }
 
     public List<Secretaria> getItems() {
