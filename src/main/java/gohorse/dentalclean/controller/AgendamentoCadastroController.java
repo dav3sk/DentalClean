@@ -47,14 +47,6 @@ public class AgendamentoCadastroController implements Serializable {
     public void setSelected(Agendamento selected) {
         this.selected = selected;
     }
-    
-    public void setDentistaSelected(Dentista selected) {
-        this.dentista = selected;
-    }
-    
-    public void setClienteSelected(Cliente selected) {
-        this.cliente = selected;
-    }
 
     protected void setEmbeddableKeys() {
     }
@@ -73,8 +65,6 @@ public class AgendamentoCadastroController implements Serializable {
     private DentistaFacade getDentistaFacade() {
         return ejbDentistaFacade;
     }
-    
-    
 
     public Dentista getDentista() {
         return dentista;
@@ -101,10 +91,16 @@ public class AgendamentoCadastroController implements Serializable {
     }
 
     public void create() {
+        selected.setCliente(cliente);
+        selected.setDentista(dentista);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/agendamento").getString("AgendamentoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             agendamentoItems = null;    // Invalidate list of items to trigger re-query.
         }
+        
+        selected = new Agendamento();
+        cliente = new Cliente();
+        dentista = new Dentista();
     }
 
     public void update() {

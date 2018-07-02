@@ -7,10 +7,12 @@ import gohorse.dentalclean.model.entity.Cliente;
 import gohorse.dentalclean.model.entity.Dentista;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -19,15 +21,22 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
 
 
-@Named("agendamentoCadastro")
+@Named("agendamentoConsulta")
 @SessionScoped
-public class AgendamentoCadastroController implements Serializable {
+public class AgendamentoConsultaController implements Serializable {
     
     @EJB private gohorse.dentalclean.controller.AgendamentoFacade ejbAgendamentoFacade;
     @EJB private gohorse.dentalclean.controller.ClienteFacade ejbClienteFacade;
     @EJB private gohorse.dentalclean.controller.DentistaFacade ejbDentistaFacade;
+    
+    private ScheduleModel eventModel;
+
     
     private List<Agendamento> agendamentoItems = null;
     private List<Dentista> dentistaItems = null;
@@ -36,30 +45,31 @@ public class AgendamentoCadastroController implements Serializable {
     private Dentista dentista = new Dentista();
     private Cliente cliente = new Cliente();
     private Agendamento selected = new Agendamento();
-
-    public AgendamentoCadastroController() {
+    
+    @PostConstruct
+    public void init() {
+        agendamentoItems = getAgendamentoItems();
+        eventModel = new DefaultScheduleModel();
+        for(Agendamento agendamento : agendamentoItems){
+            Date dataFim = new Date(agendamento.getData().getTime() + agendamento.getHorario().getTime());
+            eventModel.addEvent(new DefaultScheduleEvent(agendamento.getCliente().getNome(), agendamento.getData(), dataFim, agendamento));
+        }
     }
 
     public Agendamento getSelected() {
         return selected;
     }
 
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
+
+    public void setEventModel(ScheduleModel eventModel) {
+        this.eventModel = eventModel;
+    }
+    
     public void setSelected(Agendamento selected) {
         this.selected = selected;
-    }
-    
-    public void setDentistaSelected(Dentista selected) {
-        this.dentista = selected;
-    }
-    
-    public void setClienteSelected(Cliente selected) {
-        this.cliente = selected;
-    }
-
-    protected void setEmbeddableKeys() {
-    }
-
-    protected void initializeEmbeddableKey() {
     }
 
     private AgendamentoFacade getAgendamentoFacade() {
@@ -73,8 +83,6 @@ public class AgendamentoCadastroController implements Serializable {
     private DentistaFacade getDentistaFacade() {
         return ejbDentistaFacade;
     }
-    
-    
 
     public Dentista getDentista() {
         return dentista;
@@ -96,15 +104,20 @@ public class AgendamentoCadastroController implements Serializable {
     
     public Agendamento prepareCreate() {
         selected = new Agendamento();
-        initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        selected.setCliente(cliente);
+        selected.setDentista(dentista);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/agendamento").getString("AgendamentoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             agendamentoItems = null;    // Invalidate list of items to trigger re-query.
         }
+        
+        selected = new Agendamento();
+        cliente = new Cliente();
+        dentista = new Dentista();
     }
 
     public void update() {
@@ -142,7 +155,6 @@ public class AgendamentoCadastroController implements Serializable {
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
-            setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
                     getAgendamentoFacade().edit(selected);
@@ -188,7 +200,7 @@ public class AgendamentoCadastroController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AgendamentoCadastroController controller = (AgendamentoCadastroController)facesContext.getApplication().getELResolver().
+            AgendamentoConsultaController controller = (AgendamentoConsultaController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "agendamentoCadastro");
             return controller.getAgendamento(getKey(value));
         }
