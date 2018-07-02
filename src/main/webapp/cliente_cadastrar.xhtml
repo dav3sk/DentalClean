@@ -70,12 +70,16 @@
                                         </p:inputText>
                                         <p:message id="msgEmail" for="email" display="text" />
 
-                                        <h:outputText value="Senha*:" />
-                                        <p:inputText requiredMessage="Este campo não pode ficar vazio"  class="campoDeTexto" id="senha" value="#{clienteCadastro.selected.senha}" title="#{cliente.CreateClienteTitle_senha}">
+                                        <h:outputLabel value="Senha*:" for="pass1" />
+                                        <p:password requiredMessage="Este campo não pode ficar vazio" class="campoDeTexto" id="pass1" value="#{clienteCadastro.selected.senha}" title="#{cliente.CreateClienteTitle_senha}" 
+                                                        feedback="true" inline="true"
+                                                        promptLabel="Insira a senha" weakLabel="Senha fraca"
+                                                        goodLabel="Senha media" strongLabel="Senha forte"
+                                                     >
                                             <f:validateRequired/>
                                             <p:ajax update="msgSenha" event="keyup" />
-                                        </p:inputText>
-                                        <p:message id="msgSenha" for="senha" display="text" />
+                                        </p:password>
+                                        <p:message id="msgSenha" for="pass1" display="text" />
                                     </p:panelGrid>
 
                                     <br></br>
