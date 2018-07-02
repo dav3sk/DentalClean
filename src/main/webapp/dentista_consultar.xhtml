@@ -23,7 +23,7 @@
                                               paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                               rowsPerPageTemplate="5,10,15"
                                               emptyMessage="Não foi encontrado nenhum dado na tabela"
-                                              rowStyleClass="coluna"
+                                              rowStyleClass="coluna" reflow="true"
                                               >
 
                                     <f:facet name="header">
@@ -33,8 +33,8 @@
                                         </p:outputPanel>
                                     </f:facet>
 
-                                    <p:ajax event="rowSelect"   update="editButton, formDelete:deleteButton"/>
-                                    <p:ajax event="rowUnselect" update="editButton, formDelete:deleteButton"/>
+                                    <p:ajax event="rowSelect"   update="viewButton, dlg, editButton, formDelete:deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="viewButton, dlg, editButton, formDelete:deleteButton"/>
 
                                     <p:column headerText="Nome" sortBy="#{item.nome}" filterBy="#{item.nome}">
                                         <h:outputText value="#{item.nome}" />
@@ -47,6 +47,26 @@
                                     </p:column>
 
                                     <f:facet name="footer">
+                                        <p:commandButton id="viewButton" style="margin-right: 6px;" icon="ui-icon-search" value="#{dentista.View}" onclick="PF('dlg').show();" disabled="#{dentistaConsulta.isSelectedNull()}" />
+
+                                        <p:dialog id="dlg" header="Consultar dentista" modal="true" resizable="false" showEffect="fold" hideEffect="fold" widgetVar="dlg" height="150" width="400">
+                                            <h:outputText escape="false" value="Nome: #{dentistaConsulta.selected.nome} &lt;br/&gt; Data de nascimento: ">
+                                            </h:outputText>
+                                            <h:outputText value="#{dentistaConsulta.selected.dataDeNascimento}">
+                                                <f:convertDateTime parent="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="Telefone: #{dentistaConsulta.selected.telefone}" />
+                                            <br></br>
+                                            <h:outputText value="CPF: #{dentistaConsulta.selected.cpf}" />
+                                            <br></br>
+                                            <h:outputText value="RG: #{dentistaConsulta.selected.rg}" />
+                                            <br></br>
+                                            <h:outputText value="CEP: #{dentistaConsulta.selected.cep}" />
+                                            <br></br>
+                                            <h:outputText value="Email: #{dentistaConsulta.selected.email}" />
+                                        </p:dialog>
+                                        
                                         <p:commandButton id="editButton" icon="ui-icon-pencil" value="#{dentista.Edit}" update=":DentistaEditForm" oncomplete="PF('DentistaEditDialog').show()" disabled="#{dentistaConsulta.isSelectedNull()}"/>
 
                                         <h:form id="formDelete">
