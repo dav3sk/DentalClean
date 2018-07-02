@@ -126,7 +126,7 @@ public class DentistaConsultaController implements Serializable {
                 return null;
             }
             DentistaConsultaController controller = (DentistaConsultaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "dentistaController");
+                    getValue(facesContext.getELContext(), null, "dentistaConsulta");
             return controller.getDentista(getKey(value));
         }
 

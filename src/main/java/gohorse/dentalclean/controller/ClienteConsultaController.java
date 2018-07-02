@@ -126,7 +126,7 @@ public class ClienteConsultaController implements Serializable {
                 return null;
             }
             ClienteConsultaController controller = (ClienteConsultaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "clienteController");
+                    getValue(facesContext.getELContext(), null, "clienteConsulta");
             return controller.getCliente(getKey(value));
         }
 

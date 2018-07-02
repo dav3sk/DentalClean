@@ -124,7 +124,7 @@ public class DentistaCadastroController implements Serializable {
                 return null;
             }
             DentistaCadastroController controller = (DentistaCadastroController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "dentistaController");
+                    getValue(facesContext.getELContext(), null, "dentistaCadastro");
             return controller.getDentista(getKey(value));
         }
 
