@@ -53,7 +53,7 @@ public class AgendamentoConsultaController implements Serializable {
     private Agendamento selected = new Agendamento();
     
     private boolean viewChange;
-
+    
     @PostConstruct
     public void init() {
         System.out.println("gohorse.dentalclean.controller.AgendamentoConsultaController.init()");
@@ -140,6 +140,7 @@ public class AgendamentoConsultaController implements Serializable {
 
     public void setViewChange(boolean viewChange) {
         this.viewChange = viewChange;
+        System.out.println("ViewChange = " + viewChange);
     }
 
     public void update() {
