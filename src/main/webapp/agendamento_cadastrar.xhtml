@@ -14,7 +14,9 @@
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-body">
                             <div id="cadastro">
-                                <h:form>
+                                <h:form id="Cadastro">
+                                    <p:growl id="messages" showDetail="false" />
+
                                     <h2 class="tittle">CADASTRO DE AGENDAMENTO</h2>
                                     <p:outputLabel for="dentistalist" value="Selecione um dentista:" />
                                     <p:dataTable id="dentistalist" var="item" value="#{dentistaConsulta.items}"
@@ -44,7 +46,7 @@
                                         </p:column>
                                     </p:dataTable>
 
-                                    <p:outputLabel for="dataHorario" value="Time:" />
+                                    <p:outputLabel for="dataHorario" value="Data e horário" />
                                     <p:calendar id="dataHorario" value="#{agendamentoCadastro.selected.dataHorario}" pattern="dd/MM/yyyy HH:mm">
                                         <f:validateRequired/>
                                     </p:calendar>

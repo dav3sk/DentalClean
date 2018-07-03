@@ -51,6 +51,8 @@ public class AgendamentoConsultaController implements Serializable {
     private Dentista dentista = new Dentista();
     private Cliente cliente = new Cliente();
     private Agendamento selected = new Agendamento();
+    
+    private boolean viewChange;
 
     @PostConstruct
     public void init() {
@@ -60,6 +62,7 @@ public class AgendamentoConsultaController implements Serializable {
         for (Agendamento agendamento : agendamentoItems) {
             eventModel.addEvent(new AgendamentoEvent(agendamento));
         }
+        viewChange = false;
     }
 
     public Agendamento getSelected() {
@@ -129,6 +132,14 @@ public class AgendamentoConsultaController implements Serializable {
 
     public void setConsulta(ScheduleEvent consulta) {
         this.consulta = (AgendamentoEvent) consulta;
+    }
+
+    public boolean isViewChange() {
+        return viewChange;
+    }
+
+    public void setViewChange(boolean viewChange) {
+        this.viewChange = viewChange;
     }
 
     public void update() {

@@ -18,10 +18,14 @@
                                 <div id="cadastro">
                                     <h:form id="Consulta">
                                         <p:growl id="messages" showDetail="false" />
-
+                                        <h2 class="tittle">CONSULTA DE AGENDAMENTO</h2>
+                                        <p:selectOneButton id="viewChange" >
+                                            <f:selectItem itemLabel="Calendario" itemValue="#{agendamentoConsulta.setViewChange(false)}" />
+                                            <f:selectItem itemLabel="Lista" itemValue="#{agendamentoConsulta.setViewChange(true)}" />
+                                        </p:selectOneButton>
+                                        
                                         <!-- schedule -->
-                                        <h:panelGrid style="width: 100%;">
-                                            <h2 class="tittle">CONSULTA DE AGENDAMENTO</h2>
+                                        <h:panelGrid id="gridAgenda" style="width: 100%;" rendered="#{!agendamentoConsulta.viewChange}">
                                             <p:schedule id="agenda" widgetVar="myagenda"
                                                         value="#{agendamentoConsulta.eventModel}"
                                                         timeFormat="HH:mm" timeZone="GMT-3"
@@ -32,6 +36,37 @@
                                             </p:schedule>
                                         </h:panelGrid>
                                         <!--// schedule -->
+
+                                        <!-- list -->
+                                        <h:panelGrid id="gridLista" rendered="#{agendamentoConsulta.viewChange}">
+                                            <p:dataTable id="agendamentos" var="item" value="#{agendamentoCadastro.agendamentoItems}"
+                                                         rowKey="#{item.id}"
+                                                         emptyMessage="Não foi encontrado nenhum dado na tabela"
+                                                         rowStyleClass="coluna"
+                                                         >
+
+                                                <p:column headerText="Dentista">
+                                                    <h:outputText value="#{item.dentista.nome}"/>
+                                                </p:column>
+
+                                                <p:column headerText="Cliente">
+                                                    <h:outputText value="#{item.cliente.nome}" />
+                                                </p:column>
+
+                                                <p:column headerText="Data">
+                                                    <h:outputText value="#{item.dataHorario}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </p:column>
+
+                                                <p:column headerText="Horário">
+                                                    <h:outputText value="#{item.dataHorario}">
+                                                        <f:convertDateTime timeZone="GMT-3" type="time"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                        <!--// list -->
 
                                         <!-- event details -->
                                         <p:dialog widgetVar="consultaViewDialog" header="Detalhes da consulta" resizable="false" showEffect="fold" hideEffect="fold">
