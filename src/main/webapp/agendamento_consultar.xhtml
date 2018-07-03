@@ -18,11 +18,12 @@
                                 <div id="cadastro">
                                     <h:form id="Consulta">
                                         <p:growl id="messages" showDetail="false" />
-                                        <h2 class="tittle">CONSULTA DE AGENDAMENTO</h2>
-                                        <p:selectOneButton id="viewChange" >
-                                            <f:selectItem itemLabel="Calendario" itemValue="#{agendamentoConsulta.setViewChange(false)}" />
-                                            <f:selectItem itemLabel="Lista" itemValue="#{agendamentoConsulta.setViewChange(true)}" />
-                                        </p:selectOneButton>
+                                        <h2 class="titulo">CONSULTA DE AGENDAMENTO</h2>
+                                        
+                                        <h:outputText value="Tipo de visão selecionada: " />
+                                        <p:selectBooleanButton id="value2" value="#{agendamentoConsulta.viewChange}" onLabel="Lista" offLabel="Calendário" onIcon="ui-icon-grip-solid-horizontal" offIcon="ui-icon-calendar" style="width: 10%">
+                                            <p:ajax update="Consulta" />
+                                        </p:selectBooleanButton>
                                         
                                         <!-- schedule -->
                                         <h:panelGrid id="gridAgenda" style="width: 100%;" rendered="#{!agendamentoConsulta.viewChange}">
@@ -41,15 +42,18 @@
                                         <h:panelGrid id="gridLista" rendered="#{agendamentoConsulta.viewChange}">
                                             <p:dataTable id="agendamentos" var="item" value="#{agendamentoCadastro.agendamentoItems}"
                                                          rowKey="#{item.id}"
-                                                         emptyMessage="Não foi encontrado nenhum dado na tabela"
-                                                         rowStyleClass="coluna"
+                                                         paginator="true" rows="10"
+                                                            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                            rowsPerPageTemplate="5,10,15"
+                                                            emptyMessage="Não foi encontrado nenhum dado na tabela"
+                                                            rowStyleClass="coluna" reflow="true"
                                                          >
-
-                                                <p:column headerText="Dentista">
+                                                
+                                                <p:column headerText="Dentista" sortBy="#{item.dentista.nome}" filterBy="#{item.dentista.nome}">
                                                     <h:outputText value="#{item.dentista.nome}"/>
                                                 </p:column>
 
-                                                <p:column headerText="Cliente">
+                                                <p:column headerText="Cliente" sortBy="#{item.dentista.nome}" filterBy="#{item.dentista.nome}">
                                                     <h:outputText value="#{item.cliente.nome}" />
                                                 </p:column>
 
@@ -69,7 +73,7 @@
                                         <!--// list -->
 
                                         <!-- event details -->
-                                        <p:dialog widgetVar="consultaViewDialog" header="Detalhes da consulta" resizable="false" showEffect="fold" hideEffect="fold">
+                                        <p:dialog widgetVar="consultaViewDialog" header="Detalhes da consulta" modal="true" resizable="false" showEffect="fold" hideEffect="fold">
                                             <h:panelGrid id="consultaDetalhes" columns="2">
                                                 <p:outputLabel for="dentista" value="Dentista:" /> 
                                                 <p:outputLabel id="dentista" value="#{agendamentoConsulta.consulta.data.dentista.nome}"/>
@@ -93,13 +97,14 @@
                                                 </p:outputLabel>
 
                                                 <p:commandButton icon="ui-icon-pencil" value="#{agendamento.Edit}" update="consultaEditar" oncomplete="PF('consultaEditDialog').show()"/>
+                                                
                                                 <h:form id="formDelete">
-                                                    <p:commandButton id="deleteButton" icon="ui-icon-trash" oncomplete="PF('confirmation').show()" value="#{agendamento.Delete}">
+                                                    <p:commandButton id="deleteButton" icon="ui-icon-trash" value="#{agendamento.Delete}">
                                                         <p:confirm header="Remover agendamento" message="Tem certeza que deseja remover este agendamento?" icon="ui-icon-alert" />
                                                     </p:commandButton>
 
                                                     <p:confirmDialog global="true" showEffect="fold" hideEffect="clip">
-                                                        <p:commandButton onclick="#{agendamentoConsulta.destroy()}" value="Sim" onsuccess="location.reload();" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton actionListener="#{agendamentoConsulta.destroy()}" action="#{agendamentoConsulta.destroy()}" value="Sim" onsuccess="location.reload();" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                                                     </p:confirmDialog>
                                                 </h:form>
@@ -108,7 +113,7 @@
                                         <!--// event details -->
 
                                         <!-- event edit -->
-                                        <p:dialog widgetVar="consultaEditDialog" header="Editar consulta" resizable="false" showEffect="fold" hideEffect="fold">
+                                        <p:dialog widgetVar="consultaEditDialog" header="Editar consulta" modal="true" resizable="false" showEffect="fold" hideEffect="fold">
                                             <h:panelGrid id="consultaEditar" columns="2">
                                                 <p:outputLabel for="dentistaEdit" value="Dentista:" /> 
                                                 <p:outputLabel id="dentistaEdit" value="#{agendamentoConsulta.consulta.data.dentista.nome}"/>
