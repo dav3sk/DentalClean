@@ -45,7 +45,7 @@
                                     </p:dataTable>
 
                                     <p:outputLabel for="dataHorario" value="Time:" />
-                                    <p:calendar id="dataHorario" value="#{agendamentoCadastro.selected.data}" pattern="dd/MM/yyyy HH:mm">
+                                    <p:calendar id="dataHorario" value="#{agendamentoCadastro.selected.dataHorario}" pattern="dd/MM/yyyy HH:mm">
                                         <f:validateRequired/>
                                     </p:calendar>
                                     
@@ -55,6 +55,7 @@
 
                                 </h:form>
                                 
+                                <!-- REMOVER -->
                                 <div>
                                     <p:dataTable id="agendamentos" var="item" value="#{agendamentoCadastro.agendamentoItems}"
                                                  rowKey="#{item.id}"
@@ -71,18 +72,19 @@
                                         </p:column>
                                         
                                         <p:column headerText="Data">
-                                            <h:outputText value="#{item.data}">
+                                            <h:outputText value="#{item.dataHorario}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </p:column>
                                         
                                         <p:column headerText="Horário">
-                                            <h:outputText value="#{item.horario}">
+                                            <h:outputText value="#{item.dataHorario}">
                                                 <f:convertDateTime timeZone="GMT-3" type="time"/>
                                             </h:outputText>
                                         </p:column>
                                     </p:dataTable>
                                 </div>
+                                <!-- REMOVER -->
                             </div>
                         </div>
                     </div>

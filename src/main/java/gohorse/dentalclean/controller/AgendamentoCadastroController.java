@@ -203,18 +203,7 @@ public class AgendamentoCadastroController implements Serializable {
 
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof Agendamento) {
-                Agendamento o = (Agendamento) object;
-                return getStringKey(o.getId());
-            } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Agendamento.class.getName()});
-                return null;
-            }
+            return "";
         }
-
     }
-
 }

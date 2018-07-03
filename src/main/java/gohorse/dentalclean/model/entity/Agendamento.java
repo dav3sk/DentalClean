@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 @Entity
 @Table(name="agendamento")
@@ -22,20 +22,17 @@ public class Agendamento implements Serializable {
     private Long id;
     
     @ManyToOne
+    @JoinColumn(nullable=false)
     private Cliente cliente;
     
     @ManyToOne
+    @JoinColumn(nullable=false)
     private Dentista dentista;
     
     @Column(name="data",
             nullable=false)
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date data;
-    
-    @Column(name="horario",
-            nullable=false)
-    @Temporal(javax.persistence.TemporalType.TIME)
-    private Date horario;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date dataHorario;
     
     @Column(name="status",
             nullable=false)
@@ -65,21 +62,12 @@ public class Agendamento implements Serializable {
         this.dentista = dentista;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDataHorario() {
+        return dataHorario;
     }
 
-    public void setData(Date data) {
-        setHorario(data);
-        this.data = data;
-    }
-
-    public Date getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Date horario) {
-        this.horario = horario;
+    public void setDataHorario(Date data) {
+        this.dataHorario = data;
     }
 
     public String getStatus() {
@@ -89,8 +77,6 @@ public class Agendamento implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -114,10 +100,9 @@ public class Agendamento implements Serializable {
     @Override
     public String toString() {
         return "Agendamento[ id="           + id +
-                          " clienteid= "    + cliente.getId() +
+                          " clienteid="     + cliente.getId() +
                           " dentistaid="    + dentista.getId() +  
-                          " data="          + data +
-                          " horario="       + horario +"]";
+                          " data="          + dataHorario +"]";
     }
     
 }

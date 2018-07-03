@@ -1,5 +1,6 @@
 package gohorse.dentalclean.controller;
 
+import gohorse.dentalclean.controller.util.AgendamentoEvent;
 import gohorse.dentalclean.model.entity.Agendamento;
 import gohorse.dentalclean.controller.util.JsfUtil;
 import gohorse.dentalclean.controller.util.JsfUtil.PersistAction;
@@ -7,7 +8,7 @@ import gohorse.dentalclean.model.entity.Cliente;
 import gohorse.dentalclean.model.entity.Dentista;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,10 +23,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
-
 
 @Named("agendamentoConsulta")
 @SessionScoped
@@ -36,7 +36,7 @@ public class AgendamentoConsultaController implements Serializable {
     @EJB private gohorse.dentalclean.controller.DentistaFacade ejbDentistaFacade;
     
     private ScheduleModel eventModel;
-
+    private ScheduleEvent consulta = new AgendamentoEvent();
     
     private List<Agendamento> agendamentoItems = null;
     private List<Dentista> dentistaItems = null;
@@ -45,14 +45,14 @@ public class AgendamentoConsultaController implements Serializable {
     private Dentista dentista = new Dentista();
     private Cliente cliente = new Cliente();
     private Agendamento selected = new Agendamento();
-    
+        
     @PostConstruct
     public void init() {
+        System.out.println("gohorse.dentalclean.controller.AgendamentoConsultaController.init()");
         agendamentoItems = getAgendamentoItems();
         eventModel = new DefaultScheduleModel();
         for(Agendamento agendamento : agendamentoItems){
-            Date dataFim = new Date(agendamento.getData().getTime() + agendamento.getHorario().getTime());
-            eventModel.addEvent(new DefaultScheduleEvent(agendamento.getCliente().getNome(), agendamento.getData(), dataFim, agendamento));
+            eventModel.addEvent(new AgendamentoEvent(agendamento));
         }
     }
 
@@ -61,11 +61,19 @@ public class AgendamentoConsultaController implements Serializable {
     }
 
     public ScheduleModel getEventModel() {
+        System.out.println(LocalTime.now() + " - gohorse.dentalclean.controller.AgendamentoConsultaController.getEventModel()");
         return eventModel;
     }
-
+    
     public void setEventModel(ScheduleModel eventModel) {
         this.eventModel = eventModel;
+    }
+    
+    public void onEventSelect(SelectEvent selectEvent) {
+        consulta = (AgendamentoEvent) selectEvent.getObject();
+    }
+
+    public void updateEventModel() {
     }
     
     public void setSelected(Agendamento selected) {
@@ -101,6 +109,14 @@ public class AgendamentoConsultaController implements Serializable {
         System.out.println("set-agendamentocliente_" + cliente);
         this.cliente = cliente;
     }
+
+    public ScheduleEvent getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(ScheduleEvent consulta) {
+        this.consulta = (AgendamentoEvent) consulta;
+    }
     
     public Agendamento prepareCreate() {
         selected = new Agendamento();
@@ -121,6 +137,7 @@ public class AgendamentoConsultaController implements Serializable {
     }
 
     public void update() {
+        selected = (Agendamento) consulta.getData();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/agendamento").getString("AgendamentoUpdated"));
     }
 
@@ -160,6 +177,7 @@ public class AgendamentoConsultaController implements Serializable {
                     getAgendamentoFacade().edit(selected);
                 } else {
                     getAgendamentoFacade().remove(selected);
+                    eventModel.deleteEvent(consulta);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -218,19 +236,8 @@ public class AgendamentoConsultaController implements Serializable {
         }
 
         @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof Agendamento) {
-                Agendamento o = (Agendamento) object;
-                return getStringKey(o.getId());
-            } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Agendamento.class.getName()});
-                return null;
-            }
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+           return ""; //To change body of generated methods, choose Tools | Templates.
         }
-
     }
-
 }
