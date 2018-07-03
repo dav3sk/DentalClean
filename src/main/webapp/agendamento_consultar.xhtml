@@ -2,7 +2,9 @@
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://java.sun.com/jsf/html"
              xmlns:ui="http://java.sun.com/jsf/facelets"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
     <ui:define name="content">
@@ -14,239 +16,165 @@
                         <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                             <div class="form-body">
                                 <div id="cadastro">
-                                    <form action="#" method="post"> 
-                                        <h2 class="tittle">CONSULTA DE AGENDAMENTOS</h2>
-                                        <div id="calendar-wrap">
-                                            <header>
-                                                <h1>Dezembro 2018</h1>
-                                            </header>
-                                            <div id="calendar">
-                                                <ul class="weekdays">
-                                                    <li>Domingo</li>
-                                                    <li>Segunda</li>
-                                                    <li>Terça</li>
-                                                    <li>Quarta</li>
-                                                    <li>Quinta</li>
-                                                    <li>Sexta</li>
-                                                    <li>Sábado</li>
-                                                </ul>
+                                    <h:form id="Consulta">
+                                        <p:growl id="messages" showDetail="false" />
+                                        <h2 class="tittle">CONSULTA DE AGENDAMENTO</h2>
+                                        <p:selectOneButton id="viewChange" >
+                                            <f:selectItem itemLabel="Calendario" itemValue="#{agendamentoConsulta.setViewChange(false)}" />
+                                            <f:selectItem itemLabel="Lista" itemValue="#{agendamentoConsulta.setViewChange(true)}" />
+                                        </p:selectOneButton>
+                                        
+                                        <!-- schedule -->
+                                        <h:panelGrid id="gridAgenda" style="width: 100%;" rendered="#{!agendamentoConsulta.viewChange}">
+                                            <p:schedule id="agenda" widgetVar="myagenda"
+                                                        value="#{agendamentoConsulta.eventModel}"
+                                                        timeFormat="HH:mm" timeZone="GMT-3"
+                                                        resizable="false" draggable="false">
 
-                                                <!-- Days from previous month -->
+                                                <p:ajax event="eventSelect" listener="#{agendamentoConsulta.onEventSelect}" update="consultaDetalhes" oncomplete="PF('consultaViewDialog').show();" />
 
-                                                <ul class="days">
-                                                    <li class="day other-month">
-                                                        <div class="date">27</div>                      
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">28</div>
-                                                        <div class="event">
-                                                            <div class="event-desc">
-                                                                João Roberto
-                                                            </div>
-                                                            <div class="event-time">
-                                                                14:20 - 15:20
-                                                            </div>
-                                                        </div>                      
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">29</div>                      
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">30</div>                      
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">31</div>                      
-                                                    </li>
+                                            </p:schedule>
+                                        </h:panelGrid>
+                                        <!--// schedule -->
 
-                                                    <!-- Days in current month -->
+                                        <!-- list -->
+                                        <h:panelGrid id="gridLista" rendered="#{agendamentoConsulta.viewChange}">
+                                            <p:dataTable id="agendamentos" var="item" value="#{agendamentoCadastro.agendamentoItems}"
+                                                         rowKey="#{item.id}"
+                                                         emptyMessage="Não foi encontrado nenhum dado na tabela"
+                                                         rowStyleClass="coluna"
+                                                         >
 
-                                                    <li class="day">
-                                                        <div class="date">1</div>                       
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">2</div>
-                                                        <div class="event">
-                                                            <div class="event-desc">
-                                                                Maria Pereira
-                                                            </div>
-                                                            <div class="event-time">
-                                                                13:50 - 14:50pm
-                                                            </div>
-                                                        </div>                      
-                                                    </li>
-                                                </ul>
+                                                <p:column headerText="Dentista">
+                                                    <h:outputText value="#{item.dentista.nome}"/>
+                                                </p:column>
 
-                                                <!-- Row #2 -->
+                                                <p:column headerText="Cliente">
+                                                    <h:outputText value="#{item.cliente.nome}" />
+                                                </p:column>
 
-                                                <ul class="days">
-                                                    <li class="day">
-                                                        <div class="date">3</div>                       
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">4</div>                       
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">5</div>                       
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">6</div>                       
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">7</div>
-                                                        <div class="event">
-                                                            <div class="event-desc">
-                                                                Gilberto Fiuza
-                                                            </div>
-                                                            <div class="event-time">
-                                                                9:00 - 10:00
-                                                            </div>
-                                                        </div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">8</div>                       
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">9</div>                       
-                                                    </li>
-                                                </ul>
+                                                <p:column headerText="Data">
+                                                    <h:outputText value="#{item.dataHorario}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </p:column>
 
-                                                <!-- Row #3 -->
+                                                <p:column headerText="Horário">
+                                                    <h:outputText value="#{item.dataHorario}">
+                                                        <f:convertDateTime timeZone="GMT-3" type="time"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                        <!--// list -->
 
-                                                <ul class="days">
-                                                    <li class="day">
-                                                        <div class="date">10</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">11</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">12</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">13</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">14</div><div class="event">
-                                                            <div class="event-desc">
-                                                                Roberta da Silva
-                                                            </div>
-                                                            <div class="event-time">
-                                                                11:00 - 11:50
-                                                            </div>
-                                                        </div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">15</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">16</div>                      
-                                                    </li>
-                                                </ul>
+                                        <!-- event details -->
+                                        <p:dialog widgetVar="consultaViewDialog" header="Detalhes da consulta" resizable="false" showEffect="fold" hideEffect="fold">
+                                            <h:panelGrid id="consultaDetalhes" columns="2">
+                                                <p:outputLabel for="dentista" value="Dentista:" /> 
+                                                <p:outputLabel id="dentista" value="#{agendamentoConsulta.consulta.data.dentista.nome}"/>
 
-                                                <!-- Row #4 -->
+                                                <p:outputLabel for="cliente" value="Cliente:" /> 
+                                                <p:outputLabel id="cliente" value="#{agendamentoConsulta.consulta.data.cliente.nome}"/>
 
-                                                <ul class="days">
-                                                    <li class="day">
-                                                        <div class="date">17</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">18</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">19</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">20</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">21</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">22</div>
-                                                        <div class="event">
-                                                            <div class="event-desc">
-                                                                Jose Almeida
-                                                            </div>
-                                                            <div class="event-time">
-                                                                16:00 - 17:00
-                                                            </div>
-                                                        </div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">23</div>                      
-                                                    </li>
-                                                </ul>
+                                                <p:outputLabel for="data" value="Data:" /> 
+                                                <p:outputLabel id="data" value="#{agendamentoConsulta.consulta.data.dataHorario}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                </p:outputLabel>
 
-                                                <!-- Row #5 -->
+                                                <p:outputLabel for="horario" value="Horario:" /> 
+                                                <p:outputLabel id="horario" value="#{agendamentoConsulta.consulta.data.dataHorario}">
+                                                    <f:convertDateTime timeZone="GMT-3" pattern="HH:mm"/>
+                                                </p:outputLabel>
 
-                                                <ul class="days">
-                                                    <li class="day">
-                                                        <div class="date">24</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">25</div>                    
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">26</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">27</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">28</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">29</div>                      
-                                                    </li>
-                                                    <li class="day">
-                                                        <div class="date">30</div>                      
-                                                    </li>
-                                                </ul>
+                                                <p:outputLabel for="status" value="Status:" /> 
+                                                <p:outputLabel id="status" value="#{agendamentoConsulta.consulta.data.status}">
+                                                    <f:convertDateTime pattern="HH:mm"/>
+                                                </p:outputLabel>
 
-                                                <!-- Row #6 -->
+                                                <p:commandButton icon="ui-icon-pencil" value="#{agendamento.Edit}" update="consultaEditar" oncomplete="PF('consultaEditDialog').show()"/>
+                                                <h:form id="formDelete">
+                                                    <p:commandButton id="deleteButton" icon="ui-icon-trash" oncomplete="PF('confirmation').show()" value="#{agendamento.Delete}">
+                                                        <p:confirm header="Remover agendamento" message="Tem certeza que deseja remover este agendamento?" icon="ui-icon-alert" />
+                                                    </p:commandButton>
 
-                                                <ul class="days">
-                                                    <li class="day">
-                                                        <div class="date">31</div>                      
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">1</div> <!-- Next Month -->                       
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">2</div>                       
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">3</div>                       
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">4</div>                       
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">5</div>                       
-                                                    </li>
-                                                    <li class="day other-month">
-                                                        <div class="date">6</div>                       
-                                                    </li>
-                                                </ul>
+                                                    <p:confirmDialog global="true" showEffect="fold" hideEffect="clip">
+                                                        <p:commandButton onclick="#{agendamentoConsulta.destroy()}" value="Sim" onsuccess="location.reload();" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                    </p:confirmDialog>
+                                                </h:form>
+                                            </h:panelGrid>
+                                        </p:dialog>
+                                        <!--// event details -->
 
-                                            </div><!-- /. calendar -->
-                                        </div>
-                                        <!-- /. wrap calendar -->
+                                        <!-- event edit -->
+                                        <p:dialog widgetVar="consultaEditDialog" header="Editar consulta" resizable="false" showEffect="fold" hideEffect="fold">
+                                            <h:panelGrid id="consultaEditar" columns="2">
+                                                <p:outputLabel for="dentistaEdit" value="Dentista:" /> 
+                                                <p:outputLabel id="dentistaEdit" value="#{agendamentoConsulta.consulta.data.dentista.nome}"/>
 
-                                        <form>
-                                            <div>
-                                                <input value="EDITAR" style="background-color: #23B5B9; width: 20%; color: BLACK;" type="button" class="button button-block">
-                                                </input>
-                                                <input value="REMOVER" style="background-color: #ff0000; width: 20%;" type="button" class="button button-block">
-                                                </input>
-                                            </div>    
-                                        </form>
-                                    </form>
+                                                <p:outputLabel for="clienteEdit" value="Cliente:" /> 
+                                                <p:outputLabel id="clienteEdit" value="#{agendamentoConsulta.consulta.data.cliente.nome}"/>
+
+                                                <p:outputLabel for="dataHorarioEdit" value="Data:" /> 
+                                                <p:calendar id="dataHorarioEdit" value="#{agendamentoConsulta.consulta.data.dataHorario}" pattern="dd/MM/yyyy HH:mm">
+                                                    <f:validateRequired/>
+                                                </p:calendar>
+
+                                                <p:outputLabel for="statusEdit" value="Status:" /> 
+                                                <p:selectOneButton id="statusEdit" value="#{agendamentoConsulta.consulta.data.status}" required="true" >
+                                                    <f:selectItem itemLabel="PENDENTE" itemValue="PENDENTE" />
+                                                    <f:selectItem itemLabel="CONFIRMADO" itemValue="CONFIRMADO" />
+                                                    <f:selectItem itemLabel="CANCELADO" itemValue="CANCELADO" />
+                                                </p:selectOneButton>
+
+                                                <p:commandButton actionListener="#{agendamentoConsulta.update}" value="#{agendamento.Save}" 
+                                                                 update="Consulta" onsuccess="PF('consultaEditDialog').hide(); PF('myagenda').update(); PF('consultaViewDialog').hide();" />
+                                                <p:commandButton value="#{cliente.Cancel}" onsuccess="PF('consultaEditDialog').hide()" />
+                                            </h:panelGrid>
+                                        </p:dialog>
+                                        <!--// event edit -->
+                                    </h:form>
+
+                                    <script type="text/javascript">
+                                        PrimeFaces.locales['pt_BR'] = {
+                                            closeText: 'Fechar',
+                                            prevText: 'Anterior',
+                                            nextText: 'Próximo',
+                                            currentText: 'Hoje',
+                                            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                                            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                                            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                                            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                                            weekHeader: 'Semana',
+                                            firstDay: 0,
+                                            isRTL: false,
+                                            showMonthAfterYear: false,
+                                            yearSuffix: '',
+                                            timeOnlyTitle: 'Só Horas',
+                                            timeText: 'Tempo',
+                                            hourText: 'Hora',
+                                            minuteText: 'Minuto',
+                                            secondText: 'Segundo',
+                                            ampm: false,
+                                            month: 'Mês',
+                                            week: 'Semana',
+                                            day: 'Dia',
+                                            allDayText: 'Todo Dia'
+                                        };
+                                    </script>
+                                    <style type="text/css">
+                                        .value {
+                                            width: 1000px;
+                                        }
+                                    </style>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </ui:define>
 </ui:decorate>

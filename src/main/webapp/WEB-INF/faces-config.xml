@@ -19,5 +19,10 @@
             <base-name>/dentista</base-name>
             <var>dentista</var>
         </resource-bundle>
+        
+        <resource-bundle>
+            <base-name>/agendamento</base-name>
+            <var>agendamento</var>
+        </resource-bundle>
     </application>
 </faces-config>
