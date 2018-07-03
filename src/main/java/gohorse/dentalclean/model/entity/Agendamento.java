@@ -29,7 +29,7 @@ public class Agendamento implements Serializable {
     @JoinColumn(nullable=false)
     private Dentista dentista;
     
-    @Column(name="data",
+    @Column(name="dataHorario",
             nullable=false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataHorario;
