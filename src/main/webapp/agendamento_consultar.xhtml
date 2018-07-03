@@ -16,13 +16,16 @@
                         <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                             <div class="form-body">
                                 <div id="cadastro">
-                                    <h:form>
-                                        <p:growl id="messages" showDetail="true" />
+                                    <h:form id="Consulta">
+                                        <p:growl id="messages" showDetail="false" />
 
                                         <!-- schedule -->
-                                        <h:panelGrid columnClasses="value">
+                                        <h:panelGrid style="width: 100%;">
                                             <h2 class="tittle">CONSULTA DE AGENDAMENTO</h2>
-                                            <p:schedule id="agenda" value="#{agendamentoConsulta.eventModel}" widgetVar="myagenda" timeFormat="HH:mm" timeZone="GMT-3">
+                                            <p:schedule id="agenda" widgetVar="myagenda"
+                                                        value="#{agendamentoConsulta.eventModel}"
+                                                        timeFormat="HH:mm" timeZone="GMT-3"
+                                                        resizable="false" draggable="false">
 
                                                 <p:ajax event="eventSelect" listener="#{agendamentoConsulta.onEventSelect}" update="consultaDetalhes" oncomplete="PF('consultaViewDialog').show();" />
 
@@ -53,8 +56,18 @@
                                                 <p:outputLabel id="status" value="#{agendamentoConsulta.consulta.data.status}">
                                                     <f:convertDateTime pattern="HH:mm"/>
                                                 </p:outputLabel>
-                                                
+
                                                 <p:commandButton icon="ui-icon-pencil" value="#{agendamento.Edit}" update="consultaEditar" oncomplete="PF('consultaEditDialog').show()"/>
+                                                <h:form id="formDelete">
+                                                    <p:commandButton id="deleteButton" icon="ui-icon-trash" oncomplete="PF('confirmation').show()" value="#{agendamento.Delete}">
+                                                        <p:confirm header="Remover agendamento" message="Tem certeza que deseja remover este agendamento?" icon="ui-icon-alert" />
+                                                    </p:commandButton>
+
+                                                    <p:confirmDialog global="true" showEffect="fold" hideEffect="clip">
+                                                        <p:commandButton onclick="#{agendamentoConsulta.destroy()}" value="Sim" onsuccess="location.reload();" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                    </p:confirmDialog>
+                                                </h:form>
                                             </h:panelGrid>
                                         </p:dialog>
                                         <!--// event details -->
@@ -79,9 +92,9 @@
                                                     <f:selectItem itemLabel="CONFIRMADO" itemValue="CONFIRMADO" />
                                                     <f:selectItem itemLabel="CANCELADO" itemValue="CANCELADO" />
                                                 </p:selectOneButton>
-                                                
+
                                                 <p:commandButton actionListener="#{agendamentoConsulta.update}" value="#{agendamento.Save}" 
-                                                                 update="agenda" onsuccess="PF('consultaEditDialog').hide(); PF('myagenda').update(); PF('consultaViewDialog').hide();" />
+                                                                 update="Consulta" onsuccess="PF('consultaEditDialog').hide(); PF('myagenda').update(); PF('consultaViewDialog').hide();" />
                                                 <p:commandButton value="#{cliente.Cancel}" onsuccess="PF('consultaEditDialog').hide()" />
                                             </h:panelGrid>
                                         </p:dialog>
@@ -100,7 +113,7 @@
                                             dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
                                             dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
                                             weekHeader: 'Semana',
-                                            firstDay: 1,
+                                            firstDay: 0,
                                             isRTL: false,
                                             showMonthAfterYear: false,
                                             yearSuffix: '',
