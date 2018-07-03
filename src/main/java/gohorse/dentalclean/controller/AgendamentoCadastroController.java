@@ -141,6 +141,7 @@ public class AgendamentoCadastroController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    System.out.println("gohorse.dentalclean.controller.AgendamentoCadastroController.persist()" + selected);
                     getAgendamentoFacade().edit(selected);
                 } else {
                     getAgendamentoFacade().remove(selected);

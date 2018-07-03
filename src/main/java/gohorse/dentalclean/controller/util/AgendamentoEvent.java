@@ -30,13 +30,15 @@ public class AgendamentoEvent extends org.primefaces.model.DefaultScheduleEvent 
     }
     
     public void setData(Agendamento agendamento) {
+        super.setStartDate(agendamento.getDataHorario());
+        super.setEndDate(new Date(agendamento.getDataHorario().getTime() + (1L * (60L * 60L * 1000L))));
         this.agendamento = agendamento;
     }
     
     public void updateEvent() {
         if(agendamento != null){
-            setStartDate(agendamento.getDataHorario());
-            setEndDate(new Date(agendamento.getDataHorario().getTime() + (1L * (60L * 60L * 1000L))));
+            super.setStartDate(agendamento.getDataHorario());
+            super.setEndDate(new Date(agendamento.getDataHorario().getTime() + (1L * (60L * 60L * 1000L))));
         }
     }
 
