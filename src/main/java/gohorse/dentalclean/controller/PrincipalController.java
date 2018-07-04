@@ -155,6 +155,13 @@ public class PrincipalController implements Serializable {
         persist(PersistAction.UPDATE, "Agendamento confirmado.");
     }
 
+    public void cancel() {
+        selected = (Agendamento) consulta.getData();
+        selected.setStatus("CANCELADO");
+        System.out.println("gohorse.dentalclean.controller.AgendamentoConsultaController.confirm() " + selected);
+        persist(PersistAction.UPDATE, "Agendamento cancelado.");
+    }
+
     public void destroy() {
         System.out.println("gohorse.dentalclean.controller.AgendamentoConsultaController.destroy()");
         selected = (Agendamento) consulta.getData();
