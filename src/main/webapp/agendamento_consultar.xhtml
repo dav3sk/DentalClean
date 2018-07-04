@@ -97,17 +97,6 @@
                                                 </p:outputLabel>
 
                                                 <p:commandButton icon="ui-icon-pencil" value="#{agendamento.Edit}" update="consultaEditar" oncomplete="PF('consultaEditDialog').show()"/>
-                                                
-                                                <h:form id="formDelete">
-                                                    <p:commandButton id="deleteButton" icon="ui-icon-trash" value="#{agendamento.Delete}">
-                                                        <p:confirm header="Remover agendamento" message="Tem certeza que deseja remover este agendamento?" icon="ui-icon-alert" />
-                                                    </p:commandButton>
-
-                                                    <p:confirmDialog global="true" showEffect="fold" hideEffect="clip">
-                                                        <p:commandButton actionListener="#{agendamentoConsulta.destroy()}" action="#{agendamentoConsulta.destroy()}" value="Sim" onsuccess="location.reload();" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                                    </p:confirmDialog>
-                                                </h:form>
                                             </h:panelGrid>
                                         </p:dialog>
                                         <!--// event details -->
@@ -134,7 +123,7 @@
                                                 </p:selectOneButton>
 
                                                 <p:commandButton actionListener="#{agendamentoConsulta.update}" value="#{agendamento.Save}" 
-                                                                 update="Consulta" onsuccess="PF('consultaEditDialog').hide(); PF('myagenda').update(); PF('consultaViewDialog').hide();" />
+                                                                 update="Consulta" onsuccess="PF('consultaEditDialog').hide(); PF('consultaViewDialog').hide(); PF('myagenda').update();" />
                                                 <p:commandButton value="#{cliente.Cancel}" onsuccess="PF('consultaEditDialog').hide()" />
                                             </h:panelGrid>
                                         </p:dialog>
