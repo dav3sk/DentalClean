@@ -3,7 +3,8 @@
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:f="http://java.sun.com/jsf/core"
              xmlns:h="http://java.sun.com/jsf/html"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content"> 
         <!-- main content start-->
@@ -14,7 +15,7 @@
                         <div class="r3_counter_box">
                             <i class="pull-left fa fa-laptop user1 icon-rounded"></i>
                             <div class="stats">
-                                <h5><strong>0</strong></h5>
+                                <h5><strong>#{principalController.agendamentoCount}</strong></h5>
                                 <span>Agendamentos Realizados</span>
                             </div>
                         </div>
@@ -23,7 +24,7 @@
                         <div class="r3_counter_box">
                             <i class="pull-left fa fa-users dollar2 icon-rounded"></i>
                             <div class="stats">
-                                <h5><strong>0</strong></h5>
+                                <h5><strong>#{principalController.clienteCount}</strong></h5>
                                 <span>Clientes Cadastrados</span>
                             </div>
                         </div>
@@ -32,7 +33,7 @@
                         <div class="r3_counter_box">
                             <i class="pull-left fa fa-users dollar1 icon-rounded"></i>
                             <div class="stats">
-                                <h5><strong>0</strong></h5>
+                                <h5><strong>#{principalController.secretariaCount}</strong></h5>
                                 <span>Secretárias Cadastradas</span>
                             </div>
                         </div>
@@ -41,7 +42,7 @@
                         <div class="r3_counter_box">
                             <i class="pull-left fa fa-users dollar4 icon-rounded"></i>
                             <div class="stats">
-                                <h5><strong>0</strong></h5>
+                                <h5><strong>#{principalController.dentistaCount}</strong></h5>
                                 <span>Dentistas Cadastrados</span>
                             </div>
                         </div>
@@ -49,35 +50,83 @@
 
                     <div class="clearfix"> </div>
                 </div>
-
                 <div class="row-one widgettable">
                     <div class="clearfix"> </div>
                 </div>
 
                 <div class="col_1">
-                    <div class="col-md-4 span_8">
-                        <div class="activity_box">
-                            <h2>Solicitações de Agendamento</h2>
-                            <div class="scrollbar" id="style-1">
-                                <div class="activity-row">
-                                    <div class="col-xs-7 activity-desc">
-                                        <p>Não há solicitações</p>
-                                    </div>
-                                    <div class="clearfix"> </div>
-                                </div>
-                            </div>
-                            <form action="#" method="post">
-                                <form action="#" method="post">
-                                    <input type="submit" style="margin-left: 260px;" value="Detalhes"/>
-                                </form>
-                            </form>
-                        </div>
-                    </div>
+                    <h:form id="form">
+                        <p:growl id="messages" showDetail="false" />
 
+                        <h:panelGrid id="gridAgenda" style="width: 100%;">
+                            <p:schedule view="basicWeek" 
+                                        value="#{principalController.eventModel}"
+                                        timeFormat="HH:mm" timeZone="GMT-3"
+                                        resizable="false" draggable="false"
+                                        >
+
+                                <p:ajax event="eventSelect" listener="#{principalController.onEventSelect}" update="consultaDetalhes" oncomplete="PF('consultaConfirmDialog').show();" />
+
+                            </p:schedule>
+                        </h:panelGrid>
+
+                        <p:dialog widgetVar="consultaConfirmDialog" header="Confirmar consulta" resizable="false" showEffect="fold" hideEffect="fold">
+                            <h:panelGrid id="consultaDetalhes" columns="2">
+                                <p:outputLabel for="cliente" value="Cliente:" />
+                                <p:outputLabel id="cliente" value="#{principalController.consulta.data.cliente.nome}"/>
+
+                                <p:outputLabel for="data" value="Data:" /> 
+                                <p:outputLabel id="data" value="#{principalController.consulta.data.dataHorario}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </p:outputLabel>
+
+                                <p:outputLabel for="horario" value="Horario:" /> 
+                                <p:outputLabel id="horario" value="#{principalController.consulta.data.dataHorario}">
+                                    <f:convertDateTime timeZone="GMT-3" pattern="HH:mm"/>
+                                </p:outputLabel>
+
+                                <p:outputLabel for="status" value="Status:" />
+                                <p:outputLabel id="status" value="#{principalController.consulta.data.status}">
+                                    <f:convertDateTime pattern="HH:mm"/>
+                                </p:outputLabel>
+
+                                <p:commandButton actionListener="#{principalController.confirm}" icon="ui-icon-check" value="Confirmar" update=":form" oncomplete="PF('consultaConfirmDialog').hide()"/>
+
+                            </h:panelGrid>
+                        </p:dialog>
+                    </h:form>
                     <div class="clearfix"> </div>
                 </div>
             </div>
         </div>
-        <script src='js_principal/jquery-3.3.1.min.js'/>
+
+        <script type="text/javascript">
+            PrimeFaces.locales['pt_BR'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                currentText: 'Hoje',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Só Horas',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                ampm: false,
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo Dia'
+            };
+        </script>
     </ui:define>
 </ui:decorate>

@@ -101,7 +101,8 @@ public class Agendamento implements Serializable {
     public String toString() {
         return "Agendamento[ id="           + id +
                           " clienteid="     + cliente.getId() +
-                          " dentistaid="    + dentista.getId() +  
+                          " dentistaid="    + dentista.getId() +
+                          " status="        + status +
                           " data="          + dataHorario +"]";
     }
     

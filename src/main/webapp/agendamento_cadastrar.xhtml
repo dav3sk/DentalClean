@@ -14,11 +14,9 @@
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-body">
                             <div id="cadastro">
-                                <h:form id="Cadastro">
-                                    <p:growl id="messages" showDetail="false" />
-
-                                    <h2 class="tittle">CADASTRO DE AGENDAMENTO</h2>
-                                    <p:outputLabel for="dentistalist" value="Selecione um dentista:" />
+                                <h:form>
+                                    <h2 class="titulo">CADASTRO DE AGENDAMENTO</h2>
+                                    <p:outputLabel for="dentistalist" class="titulo" style="font-size: 20px !important;" value="Selecione um dentista:" />
                                     <p:dataTable id="dentistalist" var="item" value="#{dentistaConsulta.items}"
                                                  rowKey="#{item.id}"
                                                  selection="#{agendamentoCadastro.dentista}" selectionMode="single"
@@ -31,8 +29,10 @@
                                             <h:outputText value="#{item.nome}" />
                                         </p:column>
                                     </p:dataTable>
-
-                                    <p:outputLabel for="clientelist" value="Selecione um cliente:" />
+                                    
+                                    <br></br>
+                                    <br></br>
+                                    <p:outputLabel for="clientelist" class="titulo" style="font-size: 20px !important;" value="Selecione um cliente:" />
                                     <p:dataTable id="clientelist" var="item" value="#{clienteConsulta.items}"
                                                  rowKey="#{item.id}"
                                                  selection="#{agendamentoCadastro.cliente}" selectionMode="single"
@@ -46,19 +46,25 @@
                                         </p:column>
                                     </p:dataTable>
 
-                                    <p:outputLabel for="dataHorario" value="Data e horário" />
+                                    <br></br>
+                                    <br></br>
+                                    <p:outputLabel for="dataHorario" class="titulo" style="font-size: 20px !important;" value="Selecione um horário:" />
                                     <p:calendar id="dataHorario" value="#{agendamentoCadastro.selected.dataHorario}" pattern="dd/MM/yyyy HH:mm">
                                         <f:validateRequired/>
                                     </p:calendar>
                                     
+                                    <br></br>
                                     <div>
                                         <h:commandLink styleClass="botao botaoAzul" type="button" action="#{agendamentoCadastro.create}" value="Agendar"/>
                                     </div>
-
+                                    <br></br>
+                                    
+                                    <p:outputLabel class="titulo" style="font-size: 20px !important;" value="Agendamentos realizados:" />
+                                    
                                 </h:form>
                                 
-                                <!-- REMOVER -->
                                 <div>
+                                    
                                     <p:dataTable id="agendamentos" var="item" value="#{agendamentoCadastro.agendamentoItems}"
                                                  rowKey="#{item.id}"
                                                  emptyMessage="Não foi encontrado nenhum dado na tabela"
@@ -86,7 +92,6 @@
                                         </p:column>
                                     </p:dataTable>
                                 </div>
-                                <!-- REMOVER -->
                             </div>
                         </div>
                     </div>
