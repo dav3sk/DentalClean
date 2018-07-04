@@ -91,7 +91,7 @@
                                 </p:outputLabel>
 
                                 <p:commandButton actionListener="#{principalController.confirm}" icon="ui-icon-check" value="Confirmar" update=":form" oncomplete="PF('consultaConfirmDialog').hide()"/>
-
+                                <p:commandButton actionListener="#{principalController.cancel}" icon="ui-icon-close" value="Cancelar" update=":form" oncomplete="PF('consultaConfirmDialog').hide()"/>
                             </h:panelGrid>
                         </p:dialog>
                     </h:form>
